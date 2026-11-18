@@ -1,0 +1,7 @@
+*.bak
+*.tmp
+*.lock
+*.a3d~
+*.m3d~
+Thumbs.db
+Desktop.ini

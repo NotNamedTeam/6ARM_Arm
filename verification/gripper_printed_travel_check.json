@@ -1,0 +1,92 @@
+[
+  {
+    "rack_x": 2,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 3,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 4,
+    "count": 2,
+    "volume_mm3": 0.004622707797971846,
+    "max_volume_mm3": 0.0023113541855073793
+  },
+  {
+    "rack_x": 5,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 6,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 7,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 8,
+    "count": 2,
+    "volume_mm3": 0.0044280268544373315,
+    "max_volume_mm3": 0.0022140137342141846
+  },
+  {
+    "rack_x": 9,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 10,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 11,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 12,
+    "count": 2,
+    "volume_mm3": 0.004216255704528462,
+    "max_volume_mm3": 0.00210812815638735
+  },
+  {
+    "rack_x": 13,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 14,
+    "count": 0,
+    "volume_mm3": 0,
+    "max_volume_mm3": 0
+  },
+  {
+    "rack_x": 15,
+    "count": 1,
+    "volume_mm3": 56.375001551926985,
+    "max_volume_mm3": 56.375001551926985
+  },
+  {
+    "rack_x": 16,
+    "count": 3,
+    "volume_mm3": 1183.879028459664,
+    "max_volume_mm3": 1183.8750399239507
+  }
+]

@@ -1,0 +1,477 @@
+[
+  {
+    "a": "16/2 MG995_simplified",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 160.64873065596746
+  },
+  {
+    "a": "16/2 MG995_simplified",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 160.6487306559674
+  },
+  {
+    "a": "16/6 SCREW_ISO4762_M3x12_simplified",
+    "b": "16/2 MG995_simplified",
+    "volume": 0.9719302272043471
+  },
+  {
+    "a": "16/7 NUT_DIN934_M3_simplified",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 19.879491347913742
+  },
+  {
+    "a": "16/7 NUT_DIN934_M3_simplified",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 19.87949134791377
+  },
+  {
+    "a": "16/8 SCREW_ISO4762_M3x12_simplified",
+    "b": "16/2 MG995_simplified",
+    "volume": 0.9719302272043473
+  },
+  {
+    "a": "16/9 NUT_DIN934_M3_simplified",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 19.879491347913735
+  },
+  {
+    "a": "16/9 NUT_DIN934_M3_simplified",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 19.879491347913813
+  },
+  {
+    "a": "16/9 NUT_DIN934_M3_simplified",
+    "b": "16/2 MG995_simplified",
+    "volume": 1.9918418181817952
+  },
+  {
+    "a": "16/11 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 2.754910428495896
+  },
+  {
+    "a": "16/11 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 2.754910428495899
+  },
+  {
+    "a": "16/14 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 2.754910428495885
+  },
+  {
+    "a": "16/14 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 2.754910428495859
+  },
+  {
+    "a": "16/17 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 2.75491042849582
+  },
+  {
+    "a": "16/17 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 2.754910428495812
+  },
+  {
+    "a": "16/20 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 2.7549104284958514
+  },
+  {
+    "a": "16/20 STANDOFF_M2_AF3p3_10mm",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 2.7549104284958523
+  },
+  {
+    "a": "17/8 SCREW_ISO4762_M3x8_simplified",
+    "b": "16/2 MG995_simplified",
+    "volume": 0.7068583470576055
+  },
+  {
+    "a": "17/8 SCREW_ISO4762_M3x8_simplified",
+    "b": "17/2 MG995_rotor",
+    "volume": 27.56747553525469
+  },
+  {
+    "a": "17/11 SCREW_ISO4762_M3x8_simplified",
+    "b": "17/3 MG995_rotor",
+    "volume": 27.567475535254687
+  },
+  {
+    "a": "17/12 SCREW_ST1p7x5_horn",
+    "b": "16/0 AXIS1_-_servoEnclosure_-_bottom",
+    "volume": 0.22698006922174954
+  },
+  {
+    "a": "17/13 SCREW_ST1p7x5_horn",
+    "b": "16/1 AXIS1_-_servoEnclosure_-_top",
+    "volume": 0.22698006922182232
+  },
+  {
+    "a": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "b": "17/15 SCREW_ST1p7x5_horn",
+    "volume": 0.18204296571554024
+  },
+  {
+    "a": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "b": "17/17 SCREW_ST1p7x5_horn",
+    "volume": 0.2269800692219243
+  },
+  {
+    "a": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "b": "17/14 SCREW_ST1p7x5_horn",
+    "volume": 0.18204296571535053
+  },
+  {
+    "a": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "b": "17/16 SCREW_ST1p7x5_horn",
+    "volume": 0.22698006922183786
+  },
+  {
+    "a": "18/2 MG995_simplified",
+    "b": "17/11 SCREW_ISO4762_M3x8_simplified",
+    "volume": 0.70685834705778
+  },
+  {
+    "a": "18/2 MG995_simplified",
+    "b": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "volume": 162.62350000002385
+  },
+  {
+    "a": "18/2 MG995_simplified",
+    "b": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "volume": 162.62349999999554
+  },
+  {
+    "a": "18/3 MG90S_simplified",
+    "b": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "volume": 109.5560000000116
+  },
+  {
+    "a": "18/3 MG90S_simplified",
+    "b": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "volume": 109.55599999999875
+  },
+  {
+    "a": "18/6 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "volume": 2.7549104284964088
+  },
+  {
+    "a": "18/6 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "volume": 2.754910428492834
+  },
+  {
+    "a": "18/9 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "volume": 2.754910428496347
+  },
+  {
+    "a": "18/9 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "volume": 2.7549104284928707
+  },
+  {
+    "a": "18/12 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "volume": 2.7549104284964074
+  },
+  {
+    "a": "18/12 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "volume": 2.7549104284927695
+  },
+  {
+    "a": "18/15 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "volume": 2.754910428496285
+  },
+  {
+    "a": "18/15 STANDOFF_M2_AF3p3_10mm",
+    "b": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "volume": 2.754910428492665
+  },
+  {
+    "a": "19/4 WRIST_-_servoEnclosure_-_bottom",
+    "b": "19/3 WRIST_-_base",
+    "volume": 0.008092917128692534
+  },
+  {
+    "a": "19/5 WRIST_-_servoEnclosure_-_top",
+    "b": "19/3 WRIST_-_base",
+    "volume": 0.008092917130772648
+  },
+  {
+    "a": "19/6 MG90S_simplified",
+    "b": "19/4 WRIST_-_servoEnclosure_-_bottom",
+    "volume": 109.55735594148392
+  },
+  {
+    "a": "19/6 MG90S_simplified",
+    "b": "19/5 WRIST_-_servoEnclosure_-_top",
+    "volume": 109.55663752204536
+  },
+  {
+    "a": "19/9 NUT_DIN934_M3_simplified",
+    "b": "19/0 AXIS3_-_hornArm",
+    "volume": 0.42238861846393494
+  },
+  {
+    "a": "19/11 NUT_DIN934_M3_simplified",
+    "b": "19/1 AXIS3_-_pivotArm",
+    "volume": 0.4223886184639287
+  },
+  {
+    "a": "19/13 NUT_DIN934_M3_simplified",
+    "b": "19/0 AXIS3_-_hornArm",
+    "volume": 0.42238861846393183
+  },
+  {
+    "a": "19/15 NUT_DIN934_M3_simplified",
+    "b": "19/1 AXIS3_-_pivotArm",
+    "volume": 0.4223886184639314
+  },
+  {
+    "a": "19/16 SCREW_ISO4762_M3x8_simplified",
+    "b": "19/6 MG90S_simplified",
+    "volume": 12.299335238805185
+  },
+  {
+    "a": "19/17 NUT_DIN934_M3_simplified",
+    "b": "19/6 MG90S_simplified",
+    "volume": 17.98075853765839
+  },
+  {
+    "a": "19/18 SCREW_ISO4762_M3x8_simplified",
+    "b": "19/6 MG90S_simplified",
+    "volume": 12.299335238805185
+  },
+  {
+    "a": "19/19 NUT_DIN934_M3_simplified",
+    "b": "19/6 MG90S_simplified",
+    "volume": 17.980758537658467
+  },
+  {
+    "a": "19/21 PIVOT_WASHER_6x3p2x0p3",
+    "b": "18/0 AXIS2_-_servoEnclosure_-_bottom",
+    "volume": 0.09320640285986814
+  },
+  {
+    "a": "19/21 PIVOT_WASHER_6x3p2x0p3",
+    "b": "18/1 AXIS2_-_servoEnclosure_-_top",
+    "volume": 0.09320640285987433
+  },
+  {
+    "a": "19/22 SCREW_ISO4762_M2x6_simplified",
+    "b": "19/2 MG90S_rotor",
+    "volume": 6.2831853071795685
+  },
+  {
+    "a": "19/23 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/4 WRIST_-_servoEnclosure_-_bottom",
+    "volume": 2.755266832198485
+  },
+  {
+    "a": "19/23 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/5 WRIST_-_servoEnclosure_-_top",
+    "volume": 2.7552447901519557
+  },
+  {
+    "a": "19/26 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/4 WRIST_-_servoEnclosure_-_bottom",
+    "volume": 2.7552668321984806
+  },
+  {
+    "a": "19/26 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/5 WRIST_-_servoEnclosure_-_top",
+    "volume": 2.7552447901519543
+  },
+  {
+    "a": "19/27 SCREW_ISO4762_M2x8_simplified",
+    "b": "19/8 SCREW_ISO4762_M3x8_simplified",
+    "volume": 1.4034471808580453
+  },
+  {
+    "a": "19/28 SCREW_ISO4762_M2x8_simplified",
+    "b": "19/12 SCREW_ISO4762_M3x8_simplified",
+    "volume": 1.4034502834658105
+  },
+  {
+    "a": "19/29 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/4 WRIST_-_servoEnclosure_-_bottom",
+    "volume": 2.75526683219855
+  },
+  {
+    "a": "19/29 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/5 WRIST_-_servoEnclosure_-_top",
+    "volume": 2.755244790152077
+  },
+  {
+    "a": "19/31 SCREW_ISO4762_M2x8_simplified",
+    "b": "19/5 WRIST_-_servoEnclosure_-_top",
+    "volume": 6.323398094747223e-05
+  },
+  {
+    "a": "19/32 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/4 WRIST_-_servoEnclosure_-_bottom",
+    "volume": 2.755266832198631
+  },
+  {
+    "a": "19/32 STANDOFF_M2_AF3p3_10mm",
+    "b": "19/5 WRIST_-_servoEnclosure_-_top",
+    "volume": 2.7552447901521275
+  },
+  {
+    "a": "19/34 SCREW_ISO4762_M2x8_simplified",
+    "b": "19/5 WRIST_-_servoEnclosure_-_top",
+    "volume": 6.32339809806354e-05
+  },
+  {
+    "a": "36/18 GRIPPER_-_servoEnclosure_-_bottom",
+    "b": "36/3 MG90S_simplified",
+    "volume": 131.46264799999565
+  },
+  {
+    "a": "36/18 GRIPPER_-_servoEnclosure_-_bottom",
+    "b": "36/7 NUT_DIN934_M3_simplified",
+    "volume": 0.6299212348737246
+  },
+  {
+    "a": "36/18 GRIPPER_-_servoEnclosure_-_bottom",
+    "b": "36/9 NUT_DIN934_M3_simplified",
+    "volume": 0.6314472321039388
+  },
+  {
+    "a": "36/18 GRIPPER_-_servoEnclosure_-_bottom",
+    "b": "36/11 NUT_DIN934_M2_simplified",
+    "volume": 0.13263900996827094
+  },
+  {
+    "a": "36/18 GRIPPER_-_servoEnclosure_-_bottom",
+    "b": "36/15 NUT_DIN934_M2_simplified",
+    "volume": 0.13263900996827188
+  },
+  {
+    "a": "36/19 GRIPPER_-_servoEnclosure_-_top",
+    "b": "36/3 MG90S_simplified",
+    "volume": 131.46264799999778
+  },
+  {
+    "a": "36/19 GRIPPER_-_servoEnclosure_-_top",
+    "b": "36/7 NUT_DIN934_M3_simplified",
+    "volume": 0.62992123487374
+  },
+  {
+    "a": "36/19 GRIPPER_-_servoEnclosure_-_top",
+    "b": "36/9 NUT_DIN934_M3_simplified",
+    "volume": 0.6314472321039253
+  },
+  {
+    "a": "36/19 GRIPPER_-_servoEnclosure_-_top",
+    "b": "36/13 NUT_DIN934_M2_simplified",
+    "volume": 0.1326390099682745
+  },
+  {
+    "a": "36/19 GRIPPER_-_servoEnclosure_-_top",
+    "b": "36/17 NUT_DIN934_M2_simplified",
+    "volume": 0.1326390099682776
+  },
+  {
+    "a": "37/2 SCREW_ISO4762_M2x6_simplified",
+    "b": "36/2 GRIPPER_-_plate_-_front",
+    "volume": 19.59968401097418
+  },
+  {
+    "a": "37/2 SCREW_ISO4762_M2x6_simplified",
+    "b": "36/3 MG90S_simplified",
+    "volume": 2.1991148575122788
+  },
+  {
+    "a": "37/2 SCREW_ISO4762_M2x6_simplified",
+    "b": "37/1 MG90S_rotor",
+    "volume": 9.42477796076924
+  },
+  {
+    "a": "38/0 GRIPPER_-_gear_-_rack",
+    "b": "37/0 GRIPPER_-_gear_-_servo",
+    "volume": 0.0025552092531971726
+  },
+  {
+    "a": "38/3 SCREW_ISO4762_M2x12_simplified",
+    "b": "36/1 GRIPPER_-_plate_-_back",
+    "volume": 1.0760531350890032
+  },
+  {
+    "a": "38/3 SCREW_ISO4762_M2x12_simplified",
+    "b": "36/2 GRIPPER_-_plate_-_front",
+    "volume": 6.283185307179542
+  },
+  {
+    "a": "38/3 SCREW_ISO4762_M2x12_simplified",
+    "b": "38/2 GRIPPER_-_jaw",
+    "volume": 0.020507443554056398
+  },
+  {
+    "a": "38/4 NUT_DIN934_M2_simplified",
+    "b": "38/0 GRIPPER_-_gear_-_rack",
+    "volume": 0.0028375098540931454
+  },
+  {
+    "a": "38/6 NUT_DIN934_M2_simplified",
+    "b": "38/0 GRIPPER_-_gear_-_rack",
+    "volume": 0.0028363661223097525
+  },
+  {
+    "a": "39/0 GRIPPER_-_gear_-_rack",
+    "b": "37/0 GRIPPER_-_gear_-_servo",
+    "volume": 0.002555209242943334
+  },
+  {
+    "a": "39/3 SCREW_ISO4762_M2x12_simplified",
+    "b": "36/1 GRIPPER_-_plate_-_back",
+    "volume": 1.0760531364395984
+  },
+  {
+    "a": "39/3 SCREW_ISO4762_M2x12_simplified",
+    "b": "36/2 GRIPPER_-_plate_-_front",
+    "volume": 6.283185307179535
+  },
+  {
+    "a": "39/3 SCREW_ISO4762_M2x12_simplified",
+    "b": "39/2 GRIPPER_-_jaw",
+    "volume": 0.020507443554048006
+  },
+  {
+    "a": "39/4 NUT_DIN934_M2_simplified",
+    "b": "39/0 GRIPPER_-_gear_-_rack",
+    "volume": 0.0028375098540699417
+  },
+  {
+    "a": "39/6 NUT_DIN934_M2_simplified",
+    "b": "39/0 GRIPPER_-_gear_-_rack",
+    "volume": 0.002836366122262235
+  },
+  {
+    "a": "40 SCREW_ISO4762_M4x12_simplified",
+    "b": "14 MG995_simplified",
+    "volume": 31.415926535898887
+  },
+  {
+    "a": "42 SCREW_ISO4762_M4x12_simplified",
+    "b": "14 MG995_simplified",
+    "volume": 31.415926535898887
+  },
+  {
+    "a": "44 SCREW_ISO4762_M4x12_simplified",
+    "b": "14 MG995_simplified",
+    "volume": 29.94044659524232
+  },
+  {
+    "a": "46 SCREW_ISO4762_M4x12_simplified",
+    "b": "14 MG995_simplified",
+    "volume": 29.940446595242335
+  }
+]
