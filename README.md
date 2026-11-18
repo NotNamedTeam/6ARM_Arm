@@ -13,6 +13,7 @@
 - [`verification/`](verification/) — отчёты по ограничителям хода захвата и пересечениям в проверенных положениях.
 - [`robot_arm_gazebo/`](robot_arm_gazebo/) — сборки и детали FreeCAD, варианты лепилки и сцены Gazebo.
 - [`esp32_robot_arm_platformio/`](esp32_robot_arm_platformio/) — прошивка ESP32 и инструменты калибровки. [`esp32_robot_arm/`](esp32_robot_arm/) содержит исходный скетч Arduino.
+- [`photos/`](photos/) — фотографии собранного манипулятора и его деталей.
 
 Порядок открытия сборок и запуска симуляции описан в [инструкции по FreeCAD и Gazebo](README_IMPORT_RU.md).
 
