@@ -1,0 +1,464 @@
+{
+  "freecad_version": "1.1.4",
+  "source": "BasementMaker / Thingiverse 4604664 / CC Attribution",
+  "units": "mm",
+  "parts": [
+    {
+      "file": "freecad/parts/AXIS1_-_hornArm.FCStd",
+      "facets": 7396,
+      "valid_solid": true,
+      "volume_mm3": 11930.355595052202,
+      "faces_before": 7396,
+      "faces_after": 1787
+    },
+    {
+      "file": "freecad/parts/AXIS1_-_pivotArm.FCStd",
+      "facets": 2392,
+      "valid_solid": true,
+      "volume_mm3": 12016.20111932082,
+      "faces_before": 2392,
+      "faces_after": 596
+    },
+    {
+      "file": "freecad/parts/AXIS1_-_servoEnclosure_-_bottom.FCStd",
+      "facets": 1962,
+      "valid_solid": true,
+      "volume_mm3": 12846.817618719972,
+      "faces_before": 1962,
+      "faces_after": 413
+    },
+    {
+      "file": "freecad/parts/AXIS1_-_servoEnclosure_-_top.FCStd",
+      "facets": 1962,
+      "valid_solid": true,
+      "volume_mm3": 12846.817153846456,
+      "faces_before": 1962,
+      "faces_after": 413
+    },
+    {
+      "file": "freecad/parts/AXIS2_-_servoEnclosure_-_bottom.FCStd",
+      "facets": 1716,
+      "valid_solid": true,
+      "volume_mm3": 22629.33475247634,
+      "faces_before": 1716,
+      "faces_after": 398
+    },
+    {
+      "file": "freecad/parts/AXIS2_-_servoEnclosure_-_top.FCStd",
+      "facets": 1716,
+      "valid_solid": true,
+      "volume_mm3": 22629.335354503237,
+      "faces_before": 1716,
+      "faces_after": 398
+    },
+    {
+      "file": "freecad/parts/AXIS3_-_hornArm.FCStd",
+      "facets": 3232,
+      "valid_solid": true,
+      "volume_mm3": 6352.239236033461,
+      "faces_before": 3232,
+      "faces_after": 772
+    },
+    {
+      "file": "freecad/parts/AXIS3_-_pivotArm.FCStd",
+      "facets": 2020,
+      "valid_solid": true,
+      "volume_mm3": 6104.093270590994,
+      "faces_before": 2020,
+      "faces_after": 477
+    },
+    {
+      "file": "freecad/parts/BASE_-_base.FCStd",
+      "facets": 2744,
+      "valid_solid": true,
+      "volume_mm3": 27704.095445592175,
+      "faces_before": 2744,
+      "faces_after": 1654
+    },
+    {
+      "file": "freecad/parts/BASE_-_platform.FCStd",
+      "facets": 2812,
+      "valid_solid": true,
+      "volume_mm3": 20954.496112396322,
+      "faces_before": 2812,
+      "faces_after": 697
+    },
+    {
+      "file": "freecad/parts/BASE_-_servo_-_stand.FCStd",
+      "facets": 1348,
+      "valid_solid": true,
+      "volume_mm3": 2889.0003203762194,
+      "faces_before": 1348,
+      "faces_after": 184
+    },
+    {
+      "file": "freecad/parts/BASE_-_servo_-_stand_-_wire.FCStd",
+      "facets": 996,
+      "valid_solid": true,
+      "volume_mm3": 3997.1067377144896,
+      "faces_before": 996,
+      "faces_after": 178
+    },
+    {
+      "file": "freecad/parts/BASE_-_support.FCStd",
+      "facets": 2424,
+      "valid_solid": true,
+      "volume_mm3": 3647.6216238448314,
+      "faces_before": 2424,
+      "faces_after": 600
+    },
+    {
+      "file": "freecad/parts/BASE_-_support_-_spacer.FCStd",
+      "facets": 964,
+      "valid_solid": true,
+      "volume_mm3": 452.4014386564903,
+      "faces_before": 964,
+      "faces_after": 173
+    },
+    {
+      "file": "freecad/parts/BASE_-_support_-_stand.FCStd",
+      "facets": 804,
+      "valid_solid": true,
+      "volume_mm3": 5321.332992089621,
+      "faces_before": 804,
+      "faces_after": 128
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_gear_-_rack.FCStd",
+      "facets": 1708,
+      "valid_solid": true,
+      "volume_mm3": 988.0934760708462,
+      "faces_before": 1708,
+      "faces_after": 365
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_gear_-_servo.FCStd",
+      "facets": 6324,
+      "valid_solid": true,
+      "volume_mm3": 729.8067945349651,
+      "faces_before": 6324,
+      "faces_after": 1205
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_jaw.FCStd",
+      "facets": 716,
+      "valid_solid": true,
+      "volume_mm3": 2984.967029201559,
+      "faces_before": 716,
+      "faces_after": 181
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_plate_-_back.FCStd",
+      "facets": 2076,
+      "valid_solid": true,
+      "volume_mm3": 3426.0154917848436,
+      "faces_before": 2076,
+      "faces_after": 423
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_plate_-_front.FCStd",
+      "facets": 2124,
+      "valid_solid": true,
+      "volume_mm3": 1863.7356195208965,
+      "faces_before": 2124,
+      "faces_after": 530
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_servoEnclosure_-_bottom.FCStd",
+      "facets": 1736,
+      "valid_solid": true,
+      "volume_mm3": 12753.275297252108,
+      "faces_before": 1736,
+      "faces_after": 620
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_servoEnclosure_-_top.FCStd",
+      "facets": 1736,
+      "valid_solid": true,
+      "volume_mm3": 12753.274705987806,
+      "faces_before": 1736,
+      "faces_after": 620
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_spacer_-_jaw.FCStd",
+      "facets": 916,
+      "valid_solid": true,
+      "volume_mm3": 191.95329982897402,
+      "faces_before": 916,
+      "faces_after": 230
+    },
+    {
+      "file": "freecad/parts/GRIPPER_-_wristHornAttachment.FCStd",
+      "facets": 3240,
+      "valid_solid": true,
+      "volume_mm3": 6740.264450068854,
+      "faces_before": 3240,
+      "faces_after": 803
+    },
+    {
+      "file": "freecad/parts/WRIST_-_base.FCStd",
+      "facets": 1356,
+      "valid_solid": true,
+      "volume_mm3": 3168.7973712993285,
+      "faces_before": 1356,
+      "faces_after": 336
+    },
+    {
+      "file": "freecad/parts/WRIST_-_servoEnclosure_-_bottom.FCStd",
+      "facets": 1966,
+      "valid_solid": true,
+      "volume_mm3": 9183.15513119599,
+      "faces_before": 1966,
+      "faces_after": 447
+    },
+    {
+      "file": "freecad/parts/WRIST_-_servoEnclosure_-_top.FCStd",
+      "facets": 1966,
+      "valid_solid": true,
+      "volume_mm3": 9183.153969604075,
+      "faces_before": 1966,
+      "faces_after": 447
+    }
+  ],
+  "assembly_status": "draft_fit",
+  "unverified": [
+    "wrist attachment fit",
+    "base servo bracket positions",
+    "hardware clearance",
+    "servo models and joint limits"
+  ],
+  "instances": [
+    {
+      "name": "Instance_01",
+      "part": "BASE_-_base",
+      "group": "base",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_02",
+      "part": "BASE_-_support_-_stand",
+      "group": "base",
+      "suffix": "1"
+    },
+    {
+      "name": "Instance_03",
+      "part": "BASE_-_support_-_spacer",
+      "group": "base",
+      "suffix": "1"
+    },
+    {
+      "name": "Instance_04",
+      "part": "BASE_-_support_-_stand",
+      "group": "base",
+      "suffix": "2"
+    },
+    {
+      "name": "Instance_05",
+      "part": "BASE_-_support_-_spacer",
+      "group": "base",
+      "suffix": "2"
+    },
+    {
+      "name": "Instance_06",
+      "part": "BASE_-_support_-_stand",
+      "group": "base",
+      "suffix": "3"
+    },
+    {
+      "name": "Instance_07",
+      "part": "BASE_-_support_-_spacer",
+      "group": "base",
+      "suffix": "3"
+    },
+    {
+      "name": "Instance_08",
+      "part": "BASE_-_support_-_stand",
+      "group": "base",
+      "suffix": "4"
+    },
+    {
+      "name": "Instance_09",
+      "part": "BASE_-_support_-_spacer",
+      "group": "base",
+      "suffix": "4"
+    },
+    {
+      "name": "Instance_10",
+      "part": "BASE_-_support",
+      "group": "base",
+      "suffix": "lower ring"
+    },
+    {
+      "name": "Instance_11",
+      "part": "BASE_-_support",
+      "group": "base",
+      "suffix": "upper ring"
+    },
+    {
+      "name": "Instance_12",
+      "part": "BASE_-_servo_-_stand",
+      "group": "base",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_13",
+      "part": "BASE_-_servo_-_stand_-_wire",
+      "group": "base",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_14",
+      "part": "BASE_-_platform",
+      "group": "turntable",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_15",
+      "part": "AXIS1_-_servoEnclosure_-_bottom",
+      "group": "turntable",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_16",
+      "part": "AXIS1_-_servoEnclosure_-_top",
+      "group": "turntable",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_17",
+      "part": "AXIS1_-_hornArm",
+      "group": "upper_arm",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_18",
+      "part": "AXIS1_-_pivotArm",
+      "group": "upper_arm",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_19",
+      "part": "AXIS2_-_servoEnclosure_-_bottom",
+      "group": "forearm",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_20",
+      "part": "AXIS2_-_servoEnclosure_-_top",
+      "group": "forearm",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_21",
+      "part": "AXIS3_-_hornArm",
+      "group": "wrist_pitch",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_22",
+      "part": "AXIS3_-_pivotArm",
+      "group": "wrist_pitch",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_23",
+      "part": "WRIST_-_base",
+      "group": "wrist_pitch",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_24",
+      "part": "WRIST_-_servoEnclosure_-_bottom",
+      "group": "wrist_pitch",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_25",
+      "part": "WRIST_-_servoEnclosure_-_top",
+      "group": "wrist_pitch",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_26",
+      "part": "GRIPPER_-_wristHornAttachment",
+      "group": "gripper_body",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_27",
+      "part": "GRIPPER_-_servoEnclosure_-_bottom",
+      "group": "gripper_body",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_28",
+      "part": "GRIPPER_-_servoEnclosure_-_top",
+      "group": "gripper_body",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_29",
+      "part": "GRIPPER_-_plate_-_back",
+      "group": "gripper_body",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_30",
+      "part": "GRIPPER_-_plate_-_front",
+      "group": "gripper_body",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_31",
+      "part": "GRIPPER_-_gear_-_servo",
+      "group": "gripper_body",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_32",
+      "part": "GRIPPER_-_gear_-_rack",
+      "group": "jaw_left",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_33",
+      "part": "GRIPPER_-_spacer_-_jaw",
+      "group": "jaw_left",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_34",
+      "part": "GRIPPER_-_jaw",
+      "group": "jaw_left",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_35",
+      "part": "GRIPPER_-_gear_-_rack",
+      "group": "jaw_right",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_36",
+      "part": "GRIPPER_-_spacer_-_jaw",
+      "group": "jaw_right",
+      "suffix": ""
+    },
+    {
+      "name": "Instance_37",
+      "part": "GRIPPER_-_jaw",
+      "group": "jaw_right",
+      "suffix": ""
+    }
+  ],
+  "axis_heights_mm": {
+    "base_yaw": 47.2,
+    "shoulder": 89.6825,
+    "elbow": 149.6825,
+    "wrist_pitch": 210.195,
+    "wrist_roll": 278.84499999999997
+  },
+  "assembly": "freecad/RobotArm_Assembly.FCStd",
+  "refine_volume_verified": true,
+  "variant": "MG996R opposed shafts / both cases tilted 25 deg"
+}

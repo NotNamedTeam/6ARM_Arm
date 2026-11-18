@@ -1,0 +1,240 @@
+{
+  "status": "CONCEPT ONLY — not a print-ready or load-rated design",
+  "web_width_mm": 20,
+  "label_size_assumed_mm": [
+    20,
+    20
+  ],
+  "head_bounds_xyz_mm": [
+    62.0,
+    62.98368138433378,
+    80.0
+  ],
+  "checks": [
+    {
+      "name": "SupplyRoll",
+      "label": "1 Катушка подачи — Ø30, лента 20 мм",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "SupplyCore",
+      "label": "Втулка подающей катушки",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "SupplyFlanges",
+      "label": "Щёки подающей катушки",
+      "valid": true,
+      "solid_count": 2
+    },
+    {
+      "name": "SupplyAxle",
+      "label": "Ось подачи — условная Ø3",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "SupplyBrake",
+      "label": "Фрикционный тормоз подачи — шайбы, условно",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupCore",
+      "label": "2 Намотка подложки — втулка под D-вал N20",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupLiner",
+      "label": "Намотанная подложка — условный Ø20",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupFlanges",
+      "label": "Щёки катушки намотки",
+      "valid": true,
+      "solid_count": 2
+    },
+    {
+      "name": "TakeupSupportPin",
+      "label": "Неподвижный левый опорный штифт намотки Ø3",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupLeftBush",
+      "label": "Левая опорная втулка — условная Ø3/6",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupRightBush",
+      "label": "Правая втулка под шейку катушки — Ø6,2/10",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "N20Gearbox",
+      "label": "N20 — металлический редуктор 10 × 12 × 9 мм",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "N20Motor",
+      "label": "N20 MP 6 В — корпус мотора; общий корпус 25,6 мм",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "N20Output",
+      "label": "Выходной D-вал Ø3 × 9 — непосредственно во втулку катушки",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "N20Nose",
+      "label": "Центрирующий поясок двигателя — условный Ø5",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "N20Terminals",
+      "label": "Контакты двигателя — запас под пайку уточнить",
+      "valid": true,
+      "solid_count": 2
+    },
+    {
+      "name": "N20Bracket",
+      "label": "Кронштейн N20 — 2 отверстия под M1,6; посадку сверить",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "PeelPlate",
+      "label": "3 Отделяющая кромка — перегиб подложки, НЕ нож",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "PressRoller",
+      "label": "4 Свободный мягкий прижимной ролик — Ø14 × 22",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "PressAxle",
+      "label": "Ось прижимного ролика",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "RearCheek",
+      "label": "Задняя щека — облегчённая, 2,4 мм",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "FrontCheek",
+      "label": "Передняя щека — скрыта для обзора ленты",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "RearBridge",
+      "label": "Задняя перемычка корпуса",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "LowerBridge",
+      "label": "Нижняя перемычка корпуса",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "WristAdapter",
+      "label": "Условный переходник на кисть — посадку уточнить",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "AdapterSpacer",
+      "label": "Соединение переходника с корпусом",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "IncomingWeb",
+      "label": "Лента с этикетками: подача → кромка, БЕЗ среднего ролика",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "ReturningLiner",
+      "label": "Голая подложка: кромка → катушка намотки",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "PresentedLabel",
+      "label": "Выступающий край этикетки — около 7 мм, клей к коробке",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "BoxWall",
+      "label": "Коробка — вертикальная стенка, справочно",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "MoveDown",
+      "label": "Движение головки ВНИЗ вдоль стенки",
+      "valid": true,
+      "solid_count": 1
+    }
+  ],
+  "drive": {
+    "motor": "Pololu 2369, N20 MP 6 V 210:1 reference",
+    "body_xyz_mm": [
+      25.6,
+      10,
+      12
+    ],
+    "output_shaft_mm": [
+      3,
+      9
+    ],
+    "no_load_rpm": 100,
+    "mass_motor_g": 9.5,
+    "stall_torque_kgf_cm": 1.7,
+    "stall_current_A": 0.67,
+    "assumed_web_tension_N": [
+      0.5,
+      1.0
+    ],
+    "torque_at_10mm_radius_Nm": [
+      0.005,
+      0.01
+    ],
+    "control": "Label sensor / encoder required; do not meter by fixed time. Limit current."
+  },
+  "unverified": [
+    "wrist interface",
+    "web tangency and peel radius",
+    "adhesive release",
+    "brake torque",
+    "changing winding diameter and motor current control",
+    "mass and arm payload",
+    "fasteners and assembly access"
+  ],
+  "sources": [
+    "https://www.pololu.com/product/2369",
+    "https://www.pololu.com/file/0J1487/pololu-micro-metal-gearmotors.pdf",
+    "https://klsele.com/admin/product_upload/20150416165303TGP01S-A130.pdf"
+  ]
+}

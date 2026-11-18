@@ -1,0 +1,276 @@
+{
+  "status": "LAYOUT ONLY — not print ready, not a dynamics validation",
+  "head_bounds_xyz_mm": [
+    75.0,
+    67.47707410175573,
+    72.0
+  ],
+  "nip_centres_yz_mm": {
+    "drive": [
+      7.006607282578043,
+      -8.887678006028269
+    ],
+    "idler": [
+      4.993392717421957,
+      0.9994382122956238
+    ],
+    "liner": [
+      6.0,
+      -3.9441198968663227
+    ]
+  },
+  "nominal_feed_diameter_mm": 10,
+  "nominal_gap_mm": 0.09,
+  "assumed_pitch_mm": 22,
+  "turns_per_assumed_label": 0.7002817496043395,
+  "servo": "SG90 standard limited-angle: pulse feed, not continuous rotation",
+  "servo_gears_teeth": [
+    30,
+    20
+  ],
+  "servo_travel_for_22mm_deg": 168.06761990504148,
+  "max_feed_at_180deg_mm": 23.561944901923447,
+  "roller_gears_teeth": [
+    20,
+    20
+  ],
+  "gear_module_mm": 0.5,
+  "gear_note": "Sampled involutes; no root fillets, manufacturing tolerances or strength validation",
+  "freewheels": "Drive + backstop envelopes 3 x 6.5 x 6; NOT radial support bearings. Shaft/housing requirements unverified.",
+  "waste": "No take-up reel in this variant. Free exit; prior version retained separately.",
+  "no_label_sensor": "Servo increment with one-way coupling; backlash and slip require testing.",
+  "unverified": [
+    "effective rubber diameter and compression",
+    "traction and cumulative label registration error",
+    "web thickness and nip force",
+    "brake torque and passive axial support",
+    "freewheel orientation, shaft hardness, fits and radial supports",
+    "gear phasing, backlash and printable tooth size",
+    "SG90 usable stroke and feed repeatability",
+    "shaft locks, fits, fastening and bearing life",
+    "free waste snagging on moving arm",
+    "wrist interface, head mass and arm payload"
+  ],
+  "checks": [
+    {
+      "name": "SupplyRoll",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SupplyCore",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SupplyFlanges",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "SupplyAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeArm",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeScrew",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeKnob",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakePad",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedCore",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedRubber",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedShaft",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchRoller",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchBlock",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchBlock001",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedGear",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchGear",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ServoGear",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "InputGear",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "DrivingFreewheel",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BackstopFreewheel",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BackstopHolder",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ServoHornAdapter",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SG90Body",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SG90Boss",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SG90Output",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SG90Ears",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ServoCradle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PeelPlate",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ApplicationRoller",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ApplicationAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RearCheek",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FrontCheek",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RearBridge",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BottomBridge",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "WristAdapter",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "AdapterSpacer",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "IncomingLabels",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "StrippedLiner",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FreeWasteTail",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PresentedLabel",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BoxWall",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "HeadTravel",
+      "valid": true,
+      "solids": 1
+    }
+  ],
+  "sources": [
+    "https://towerpro.com.tw/product/sg90-7/",
+    "https://www.schaeffler.com/remotemedien/media/_shared_media/08_media_library/01_publications/schaeffler_2/brochure/downloads_1/ohf_de_en.pdf",
+    "https://www.psbearings.com/html_products/hf-series-one-way-bearing-106.html"
+  ]
+}

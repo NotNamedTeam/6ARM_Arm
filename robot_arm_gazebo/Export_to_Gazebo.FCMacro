@@ -1,0 +1,13 @@
+from pathlib import Path
+import os
+import subprocess
+import sys
+import FreeCAD as App
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+import export_from_freecad
+import importlib
+importlib.reload(export_from_freecad)
+world = export_from_freecad.export()
+subprocess.Popen([str(ROOT / 'open_gazebo.sh')], start_new_session=True)

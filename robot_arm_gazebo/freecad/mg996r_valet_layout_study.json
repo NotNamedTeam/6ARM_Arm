@@ -1,0 +1,187 @@
+{
+  "case_dimensions_mm": [
+    40.7,
+    19.7,
+    36.6
+  ],
+  "overall_height_mm": 42.9,
+  "flange_envelope_mm": [
+    54,
+    20,
+    2.6
+  ],
+  "flange_z": [
+    -14.05,
+    -11.45
+  ],
+  "status": "conservative simplified envelope; flange details and horn require physical check",
+  "source": "https://towerpro.com.tw/product/mg996R/",
+  "results": [
+    {
+      "axis_pitch_mm": 60.5125,
+      "body_body_overlap_mm3": 678.9358749999956,
+      "ear_body_overlap_mm3": 681.2259999999997,
+      "total_overlap_mm3": 1360.161874999996
+    },
+    {
+      "axis_pitch_mm": 62,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 630.0059999999995,
+      "total_overlap_mm3": 630.0059999999994
+    },
+    {
+      "axis_pitch_mm": 64,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 425.12599999999964,
+      "total_overlap_mm3": 425.1259999999996
+    },
+    {
+      "axis_pitch_mm": 66,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 220.24599999999958,
+      "total_overlap_mm3": 220.24599999999953
+    },
+    {
+      "axis_pitch_mm": 68,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 15.365999999999616,
+      "total_overlap_mm3": 15.365999999999577
+    },
+    {
+      "axis_pitch_mm": 70,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 0.0,
+      "total_overlap_mm3": 0.0
+    },
+    {
+      "axis_pitch_mm": 72,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 0.0,
+      "total_overlap_mm3": 0.0
+    },
+    {
+      "axis_pitch_mm": 74,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 0.0,
+      "total_overlap_mm3": 0.0
+    },
+    {
+      "axis_pitch_mm": 76,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 0.0,
+      "total_overlap_mm3": 0.0
+    },
+    {
+      "axis_pitch_mm": 80,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 0.0,
+      "total_overlap_mm3": 0.0
+    },
+    {
+      "axis_pitch_mm": 85,
+      "body_body_overlap_mm3": 0.0,
+      "ear_body_overlap_mm3": 0.0,
+      "total_overlap_mm3": 0.0
+    }
+  ],
+  "angled_original_pitch": [
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 0,
+      "overlap_mm3": 1360.161874999996,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 15,
+      "overlap_mm3": 848.1969858984164,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 20,
+      "overlap_mm3": 665.347997230621,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 25,
+      "overlap_mm3": 468.1451744776987,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 30,
+      "overlap_mm3": 265.40810525052837,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 35,
+      "overlap_mm3": 85.78956599191233,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 40,
+      "overlap_mm3": 18.596400799189336,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 45,
+      "overlap_mm3": 0.8688057542332634,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 60,
+      "overlap_mm3": 0.0,
+      "clearance_mm": 5.166012144967827
+    },
+    {
+      "pitch_mm": 60.5125,
+      "case_angle_deg": 90,
+      "overlap_mm3": 0.0,
+      "clearance_mm": 13.262500000000003
+    }
+  ],
+  "both_angled": [
+    {
+      "pitch_mm": 60.5125,
+      "both_case_angle_deg": 15,
+      "overlap_mm3": 576.9717984897563,
+      "clearance_mm": 0.0
+    },
+    {
+      "pitch_mm": 60.5125,
+      "both_case_angle_deg": 20,
+      "overlap_mm3": 0.0,
+      "clearance_mm": 0.8464939229945232
+    },
+    {
+      "pitch_mm": 60.5125,
+      "both_case_angle_deg": 22,
+      "overlap_mm3": 0.0,
+      "clearance_mm": 2.818381484080374
+    },
+    {
+      "pitch_mm": 60.5125,
+      "both_case_angle_deg": 25,
+      "overlap_mm3": 0.0,
+      "clearance_mm": 5.723687563584071
+    },
+    {
+      "pitch_mm": 60.5125,
+      "both_case_angle_deg": 28,
+      "overlap_mm3": 0.0,
+      "clearance_mm": 8.558897943081211
+    },
+    {
+      "pitch_mm": 60.5125,
+      "both_case_angle_deg": 30,
+      "overlap_mm3": 0.0,
+      "clearance_mm": 10.406249999999982
+    }
+  ]
+}

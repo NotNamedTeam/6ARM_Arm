@@ -1,0 +1,591 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.10">
+  <model name="robot_arm_freecad">
+    <static>false</static>
+    <self_collide>false</self_collide>
+    <link name="base">
+      <pose>0.0 0.0 0.0 0 0 0</pose>
+      <inertial>
+        <pose>0.0 0.0 0.02670000120997428 0 0 0</pose>
+        <mass>0.11398823008480247</mass>
+        <inertia>
+          <ixx>0.000319325833270677</ixx>
+          <iyy>0.000319325833270677</iyy>
+          <izz>0.000584477615401198</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="base_collision">
+        <pose>0.0 0.0 0.02670000120997428 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1753999888896942 0.1753999888896942 0.0534000024199486</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="base_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/base_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.65 .69 .74 1</ambient>
+          <diffuse>.65 .69 .74 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="turntable">
+      <pose>0.0 0.0 0.047200000000000006 0 0 0</pose>
+      <inertial>
+        <pose>0.0 -2.998858690261841e-06 0.03041625061035158 0 0 0</pose>
+        <mass>0.09298887853316534</mass>
+        <inertia>
+          <ixx>8.465532058860192e-05</ixx>
+          <iyy>8.465926599610973e-05</iyy>
+          <izz>0.00011196225412542796</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="turntable_collision">
+        <pose>0.0 -2.998858690261841e-06 0.03041625061035158 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08499699831008911 0.08499400317668915 0.06083249969482418</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="turntable_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/turntable_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.82 .32 .23 1</ambient>
+          <diffuse>.82 .32 .23 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="upper_arm">
+      <pose>0.0 0.0 0.08968250000000001 0 0 0</pose>
+      <inertial>
+        <pose>0.0 0.0 0.029999996535480022 0 0 0</pose>
+        <mass>0.01636793402862382</mass>
+        <inertia>
+          <ixx>1.582233297971858e-05</ixx>
+          <iyy>1.7751035203366375e-05</iyy>
+          <izz>6.293484436159835e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="upper_arm_collision">
+        <pose>0.0 0.0 0.029999996535480022 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.05490000173449516 0.03999999910593033 0.09999998845160007</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="upper_arm_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/upper_arm_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.90 .48 .26 1</ambient>
+          <diffuse>.90 .48 .26 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="forearm">
+      <pose>0.0 0.0 0.1496825 0 0 0</pose>
+      <inertial>
+        <pose>0.00029999949038028717 0.0 0.030256248079240322 0 0 0</pose>
+        <mass>0.19500547677570912</mass>
+        <inertia>
+          <ixx>0.0002445622994601433</ixx>
+          <iyy>0.00022559731693857916</iyy>
+          <izz>9.22951651770847e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="forearm_collision">
+        <pose>0.00029999949038028717 0.0 0.030256248079240322 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.04749999940395355 0.05850891396403313 0.10782519169151783</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="forearm_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/forearm_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.28 .47 .72 1</ambient>
+          <diffuse>.28 .47 .72 1</diffuse>
+        </material>
+      </visual>
+      <visual name="MG996R_Envelope_1_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/forearm_MG996R_Envelope_1.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.12 .13 .15 1</ambient>
+          <diffuse>.12 .13 .15 1</diffuse>
+        </material>
+      </visual>
+      <visual name="MG996R_Envelope_2_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/forearm_MG996R_Envelope_2.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.12 .13 .15 1</ambient>
+          <diffuse>.12 .13 .15 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="wrist_pitch">
+      <pose>0.0 0.0 0.210195 0 0 0</pose>
+      <inertial>
+        <pose>0.0 0.0 0.02282498963177204 0 0 0</pose>
+        <mass>0.05323061101378847</mass>
+        <inertia>
+          <ixx>3.963868981074288e-05</ixx>
+          <iyy>5.0091451757091823e-05</iyy>
+          <izz>2.464759091546754e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="wrist_pitch_collision">
+        <pose>0.0 0.0 0.02282498963177204 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.06289999932050705 0.03999999910593033 0.08564996346831322</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="wrist_pitch_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/wrist_pitch_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.31 .65 .62 1</ambient>
+          <diffuse>.31 .65 .62 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="applicator">
+      <pose>0.01 0.0 0.278845 0 0 0</pose>
+      <inertial>
+        <pose>0.01549999974668026 0.006998912431299686 0.036499999347142875 0 0 0</pose>
+        <mass>0.07324786608473552</mass>
+        <inertia>
+          <ixx>6.309523034183442e-05</ixx>
+          <iyy>7.618998516511855e-05</iyy>
+          <izz>6.309523371006804e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="applicator_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/applicator_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.7 .7 .7 1</ambient>
+          <diffuse>.7 .7 .7 1</diffuse>
+        </material>
+      </visual>
+      <collision name="SupplyRoll_collision">
+        <pose>0.000000 -0.008000 0.059000 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.020000 0.029991 0.030000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="RearCheek_collision">
+        <pose>-0.013800 0.006500 0.042500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.002400 0.059000 0.067000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="FrontCheek_collision">
+        <pose>0.013800 0.006500 0.042500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.002400 0.059000 0.067000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="RearBridge_collision">
+        <pose>0.000000 -0.021500 0.038000 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.025200 0.003000 0.050000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="BottomBridge_collision">
+        <pose>0.000000 -0.011000 0.009200 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.025200 0.018000 0.002400</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="PeelPlate_collision">
+        <pose>0.000000 0.027500 0.033100 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.022000 0.009000 0.002200</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="N20Gearbox_collision">
+        <pose>0.033000 0.007007 0.022112 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.009000 0.010000 0.012000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="N20Motor40_collision">
+        <pose>0.046000 0.007007 0.022112 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.017000 0.010000 0.012000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="N20Mount_collision">
+        <pose>0.035500 0.007007 0.021612 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.039000 0.017000 0.019000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="MG90SHeadMount_collision">
+        <pose>0.000000 0.000000 0.005500 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.028000 0.028000 0.003000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="MG90SOutputAdapter_collision">
+        <pose>0.000000 -0.000000 0.002000 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.014000 0.013996 0.010000</size>
+          </box>
+        </geometry>
+      </collision>
+      <collision name="application_roller_collision">
+        <pose>0.000000 0.032000 0.046000 0 1.570796327 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.006998</radius>
+            <length>0.022000</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+    <link name="feed_roller">
+      <pose>0.01 0.007006607282578043 0.30095732199397174 0 0 0</pose>
+      <inertial>
+        <pose>-0.0007499996572732925 0.0 -9.313225746154785e-10 0 0 0</pose>
+        <mass>0.00722574441253878</mass>
+        <inertia>
+          <ixx>1.447484016296354e-07</ixx>
+          <iyy>1.060043004611122e-06</iyy>
+          <izz>1.0600432874248764e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="feed_roller_collision">
+        <pose>-0.0007499996572732925 0.0 -9.313225746154785e-10 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.04050000011920929 0.01096330862492323 0.010963287204504013</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="feed_roller_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/feed_roller_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.7 .7 .7 1</ambient>
+          <diffuse>.7 .7 .7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <link name="pinch_roller">
+      <pose>0.01 0.004993392717421957 0.3108444382122956 0 0 0</pose>
+      <inertial>
+        <pose>-0.0005000000819563866 0.0 -1.3969838619232178e-09 0 0 0</pose>
+        <mass>0.006199920520926272</mass>
+        <inertia>
+          <ixx>1.2501303515417093e-07</ixx>
+          <iyy>7.698140428525002e-07</iyy>
+          <izz>7.698140851929245e-07</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="pinch_roller_collision">
+        <pose>-0.0005000000819563866 0.0 -1.3969838619232178e-09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03699999861419201 0.010999179445207119 0.01099917571991682</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="pinch_roller_visual">
+        <geometry>
+          <mesh>
+            <uri>model://robot_arm_freecad/meshes/pinch_roller_articulated.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>.7 .7 .7 1</ambient>
+          <diffuse>.7 .7 .7 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="world_mount" type="fixed">
+      <parent>world</parent>
+      <child>base</child>
+    </joint>
+    <joint name="base_yaw_joint" type="revolute">
+      <parent>base</parent>
+      <child>turntable</child>
+      <pose relative_to="__model__">0.0 0.0 0.047200000000000006 0 0 0</pose>
+      <axis>
+        <xyz>0.0 0.0 1.0</xyz>
+        <limit>
+          <lower>0.0</lower>
+          <upper>4.71238898038469</upper>
+          <effort>1.5</effort>
+          <velocity>0.65</velocity>
+        </limit>
+        <dynamics>
+          <damping>.0005</damping>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <use_velocity_commands>false</use_velocity_commands>
+      <p_gain>4</p_gain>
+      <i_gain>0.05</i_gain>
+      <d_gain>0.02</d_gain>
+      <i_max>0.75</i_max>
+      <i_min>-0.75</i_min>
+      <cmd_max>1.5</cmd_max>
+      <cmd_min>-1.5</cmd_min>
+      <initial_position>0</initial_position>
+      <joint_name>base_yaw_joint</joint_name>
+    </plugin>
+    <joint name="shoulder_joint" type="revolute">
+      <parent>turntable</parent>
+      <child>upper_arm</child>
+      <pose relative_to="__model__">0.0 0.0 0.08968250000000001 0 0 0</pose>
+      <axis>
+        <xyz>1.0 0.0 0.0</xyz>
+        <limit>
+          <lower>-1.4311699866353502</lower>
+          <upper>1.710422666954443</upper>
+          <effort>1.2</effort>
+          <velocity>0.45</velocity>
+        </limit>
+        <dynamics>
+          <damping>.0005</damping>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <use_velocity_commands>false</use_velocity_commands>
+      <p_gain>20</p_gain>
+      <i_gain>2</i_gain>
+      <d_gain>0.012</d_gain>
+      <i_max>0.6</i_max>
+      <i_min>-0.6</i_min>
+      <cmd_max>1.2</cmd_max>
+      <cmd_min>-1.2</cmd_min>
+      <initial_position>0</initial_position>
+      <joint_name>shoulder_joint</joint_name>
+    </plugin>
+    <joint name="elbow_joint" type="revolute">
+      <parent>upper_arm</parent>
+      <child>forearm</child>
+      <pose relative_to="__model__">0.0 0.0 0.1496825 0 0 0</pose>
+      <axis>
+        <xyz>1.0 0.0 0.0</xyz>
+        <limit>
+          <lower>-1.3089969389957472</lower>
+          <upper>1.8325957145940461</upper>
+          <effort>1.2</effort>
+          <velocity>0.5</velocity>
+        </limit>
+        <dynamics>
+          <damping>.0005</damping>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <use_velocity_commands>false</use_velocity_commands>
+      <p_gain>8</p_gain>
+      <i_gain>1</i_gain>
+      <d_gain>0.003</d_gain>
+      <i_max>0.6</i_max>
+      <i_min>-0.6</i_min>
+      <cmd_max>1.2</cmd_max>
+      <cmd_min>-1.2</cmd_min>
+      <initial_position>0</initial_position>
+      <joint_name>elbow_joint</joint_name>
+    </plugin>
+    <joint name="wrist_pitch_joint" type="revolute">
+      <parent>forearm</parent>
+      <child>wrist_pitch</child>
+      <pose relative_to="__model__">0.0 0.0 0.210195 0 0 0</pose>
+      <axis>
+        <xyz>1.0 0.0 0.0</xyz>
+        <limit>
+          <lower>-0.4363323129985824</lower>
+          <upper>0.4363323129985824</upper>
+          <effort>0.65</effort>
+          <velocity>0.45</velocity>
+        </limit>
+        <dynamics>
+          <damping>.0005</damping>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <use_velocity_commands>false</use_velocity_commands>
+      <p_gain>2.5</p_gain>
+      <i_gain>0.1</i_gain>
+      <d_gain>0.04</d_gain>
+      <i_max>0.08</i_max>
+      <i_min>-0.08</i_min>
+      <cmd_max>0.65</cmd_max>
+      <cmd_min>-0.65</cmd_min>
+      <initial_position>0</initial_position>
+      <joint_name>wrist_pitch_joint</joint_name>
+    </plugin>
+    <joint name="wrist_roll_joint" type="revolute">
+      <parent>wrist_pitch</parent>
+      <child>applicator</child>
+      <pose relative_to="__model__">0.01 0.0 0.278845 0 0 0</pose>
+      <axis>
+        <xyz>0.0 0.0 1.0</xyz>
+        <limit>
+          <lower>-1.0471975511965976</lower>
+          <upper>1.0471975511965976</upper>
+          <effort>0.12</effort>
+          <velocity>0.8</velocity>
+        </limit>
+        <dynamics>
+          <damping>.0005</damping>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <use_velocity_commands>false</use_velocity_commands>
+      <p_gain>1.2</p_gain>
+      <i_gain>0.01</i_gain>
+      <d_gain>0.035</d_gain>
+      <i_max>0.02</i_max>
+      <i_min>-0.02</i_min>
+      <cmd_max>0.12</cmd_max>
+      <cmd_min>-0.12</cmd_min>
+      <initial_position>0</initial_position>
+      <joint_name>wrist_roll_joint</joint_name>
+    </plugin>
+    <joint name="feed_joint" type="revolute">
+      <parent>applicator</parent>
+      <child>feed_roller</child>
+      <pose relative_to="__model__">0.01 0.007006607282578043 0.30095732199397174 0 0 0</pose>
+      <axis>
+        <xyz>1.0 0.0 0.0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0.03</effort>
+          <velocity>10.5</velocity>
+        </limit>
+        <dynamics>
+          <damping>.0005</damping>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
+      <initial_velocity>0</initial_velocity>
+      <joint_name>feed_joint</joint_name>
+    </plugin>
+    <joint name="pinch_joint" type="revolute">
+      <parent>applicator</parent>
+      <child>pinch_roller</child>
+      <pose relative_to="__model__">0.01 0.004993392717421957 0.3108444382122956 0 0 0</pose>
+      <axis>
+        <xyz>-1.0 0.0 0.0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0.03</effort>
+          <velocity>10.5</velocity>
+        </limit>
+        <dynamics>
+          <damping>.0005</damping>
+        </dynamics>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
+      <initial_velocity>0</initial_velocity>
+      <joint_name>pinch_joint</joint_name>
+    </plugin>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+      <topic>/robot_arm/joint_states</topic>
+      <joint_name>base_yaw_joint</joint_name>
+      <joint_name>shoulder_joint</joint_name>
+      <joint_name>elbow_joint</joint_name>
+      <joint_name>wrist_pitch_joint</joint_name>
+      <joint_name>wrist_roll_joint</joint_name>
+      <joint_name>feed_joint</joint_name>
+      <joint_name>pinch_joint</joint_name>
+    </plugin>
+  </model>
+</sdf>

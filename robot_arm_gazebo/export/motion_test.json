@@ -1,0 +1,215 @@
+{
+  "result": "passed",
+  "source": "Gazebo joint-state feedback",
+  "hardware_connection": "none",
+  "started_at": "2026-10-15T17:08:00.027036+00:00",
+  "model_sha256": "7d82911a6ea73021bf3743d69d9f74c8aab68dcf54d3e7e97495e693ae88f772",
+  "phases": [
+    {
+      "phase": "Возврат позиционных суставов в вертикальную позу, захват открыт.",
+      "targets": {
+        "base_yaw_joint": 0,
+        "shoulder_joint": 0,
+        "elbow_joint": 0,
+        "wrist_pitch_joint": 0,
+        "gripper_joint": 0.0,
+        "finger_left_joint": 0.0,
+        "finger_right_joint": 0.0
+      },
+      "measured": {
+        "base_yaw_joint": -4.6151290390228805e-15,
+        "shoulder_joint": 5.128002892377815e-07,
+        "elbow_joint": 1.9933012421757441e-07,
+        "wrist_pitch_joint": -1.7389502137137168e-07,
+        "gripper_joint": -3.472089438945139e-15,
+        "finger_left_joint": -1.911214543119398e-17,
+        "finger_right_joint": -1.0232193154699217e-17
+      }
+    },
+    {
+      "phase": "Основание: 0° → 90°.",
+      "targets": {
+        "base_yaw_joint": 1.5707963267948966
+      },
+      "measured": {
+        "base_yaw_joint": 1.5836752122740954
+      }
+    },
+    {
+      "phase": "Основание: 90° → 0°.",
+      "targets": {
+        "base_yaw_joint": 0
+      },
+      "measured": {
+        "base_yaw_joint": -2.6916921382763687e-15
+      }
+    },
+    {
+      "phase": "Плечо: абсолютный угол сервопривода 102°.",
+      "targets": {
+        "shoulder_joint": 0.3490658503988659
+      },
+      "measured": {
+        "shoulder_joint": 0.35739036654489403
+      }
+    },
+    {
+      "phase": "Плечо: абсолютный угол сервопривода 62°.",
+      "targets": {
+        "shoulder_joint": -0.3490658503988659
+      },
+      "measured": {
+        "shoulder_joint": -0.3660748409714982
+      }
+    },
+    {
+      "phase": "Плечо: абсолютный угол сервопривода 82°.",
+      "targets": {
+        "shoulder_joint": 0.0
+      },
+      "measured": {
+        "shoulder_joint": -0.0037319783428322807
+      }
+    },
+    {
+      "phase": "Локоть: абсолютный угол сервопривода 95°.",
+      "targets": {
+        "elbow_joint": 0.3490658503988659
+      },
+      "measured": {
+        "elbow_joint": 0.3563404569395136
+      }
+    },
+    {
+      "phase": "Локоть: абсолютный угол сервопривода 55°.",
+      "targets": {
+        "elbow_joint": -0.3490658503988659
+      },
+      "measured": {
+        "elbow_joint": -0.3650702741526007
+      }
+    },
+    {
+      "phase": "Локоть: абсолютный угол сервопривода 75°.",
+      "targets": {
+        "elbow_joint": 0.0
+      },
+      "measured": {
+        "elbow_joint": -0.0007900272056656132
+      }
+    },
+    {
+      "phase": "Наклон кисти: абсолютный угол сервопривода 50°.",
+      "targets": {
+        "wrist_pitch_joint": 0.3490658503988659
+      },
+      "measured": {
+        "wrist_pitch_joint": 0.3564382136487423
+      }
+    },
+    {
+      "phase": "Наклон кисти: абсолютный угол сервопривода 10°.",
+      "targets": {
+        "wrist_pitch_joint": -0.3490658503988659
+      },
+      "measured": {
+        "wrist_pitch_joint": -0.36637994235828164
+      }
+    },
+    {
+      "phase": "Наклон кисти: абсолютный угол сервопривода 30°.",
+      "targets": {
+        "wrist_pitch_joint": 0.0
+      },
+      "measured": {
+        "wrist_pitch_joint": 0.002502520131793368
+      }
+    },
+    {
+      "phase": "continuous wrist measured +/-1 radian",
+      "readings": [
+        {
+          "start": 0.16526229501258005,
+          "end": 1.169662294991244,
+          "direction": 1
+        },
+        {
+          "start": 1.2773622949890002,
+          "end": 0.2654622950100679,
+          "direction": -1
+        }
+      ]
+    },
+    {
+      "phase": "Захват: закрытие на 90° по сервоприводу (расчётный ход).",
+      "targets": {
+        "gripper_joint": 1.5707963267948966,
+        "finger_left_joint": 0.013351768777756621,
+        "finger_right_joint": 0.013351768777756621
+      },
+      "measured": {
+        "gripper_joint": 1.588083388125665,
+        "finger_left_joint": 0.013345240965652977,
+        "finger_right_joint": 0.013345740349256707
+      }
+    },
+    {
+      "phase": "Захват: открытие.",
+      "targets": {
+        "gripper_joint": 0.0,
+        "finger_left_joint": 0.0,
+        "finger_right_joint": 0.0
+      },
+      "measured": {
+        "gripper_joint": -6.021963457406022e-13,
+        "finger_left_joint": -9.880281204191294e-17,
+        "finger_right_joint": -9.605533870474908e-17
+      }
+    },
+    {
+      "phase": "Совместное плавное движение суставов.",
+      "targets": {
+        "base_yaw_joint": 0.7853981633974483,
+        "shoulder_joint": 0.2617993877991494,
+        "elbow_joint": -0.3490658503988659,
+        "wrist_pitch_joint": 0.2617993877991494,
+        "gripper_joint": 1.0471975511965976,
+        "finger_left_joint": 0.00890117918517108,
+        "finger_right_joint": 0.00890117918517108
+      },
+      "measured": {
+        "base_yaw_joint": 0.7852851357755329,
+        "shoulder_joint": 0.26295035685467055,
+        "elbow_joint": -0.34937588187979984,
+        "wrist_pitch_joint": 0.2651576007703015,
+        "gripper_joint": 1.0389449766599004,
+        "finger_left_joint": 0.00889203839186038,
+        "finger_right_joint": 0.008876791692486428
+      }
+    },
+    {
+      "phase": "Возврат позиционных суставов в вертикальную позу, захват открыт.",
+      "targets": {
+        "base_yaw_joint": 0,
+        "shoulder_joint": 0,
+        "elbow_joint": 0,
+        "wrist_pitch_joint": 0,
+        "gripper_joint": 0.0,
+        "finger_left_joint": 0.0,
+        "finger_right_joint": 0.0
+      },
+      "measured": {
+        "base_yaw_joint": -1.8701322601784497e-15,
+        "shoulder_joint": -0.00023523123229155453,
+        "elbow_joint": 0.00034215730081614277,
+        "wrist_pitch_joint": -0.0008889328649311331,
+        "gripper_joint": -4.864021520625815e-13,
+        "finger_left_joint": -8.8094232099327e-17,
+        "finger_right_joint": -9.710046131814753e-17
+      }
+    }
+  ],
+  "limits_status": "approximate command ranges; not measured mechanical stops",
+  "settle_requirement": "error < 1 degree (fingers 0.6 mm), speed < 0.03 rad/s (fingers 2 mm/s), for 0.3 s",
+  "finished_at": "2026-10-15T17:16:53.807954+00:00"
+}

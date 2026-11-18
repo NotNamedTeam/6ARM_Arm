@@ -1,0 +1,2 @@
+# Already installed in the project's Python 3.14 runtime.
+pyserial==3.5

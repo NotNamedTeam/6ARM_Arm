@@ -1,0 +1,284 @@
+{
+  "status": "LAYOUT ONLY — not print ready, not a dynamics validation",
+  "head_bounds_xyz_mm": [
+    69.0,
+    63.98368138433378,
+    72.0
+  ],
+  "nip_centres_yz_mm": {
+    "drive": [
+      7.006607282578043,
+      -8.887678006028269
+    ],
+    "idler": [
+      4.993392717421957,
+      0.9994382122956238
+    ],
+    "liner": [
+      6.0,
+      -3.9441198968663227
+    ]
+  },
+  "nominal_feed_diameter_mm": 10,
+  "nominal_gap_mm": 0.09,
+  "assumed_pitch_mm": 22,
+  "turns_per_assumed_label": 0.7002817496043395,
+  "motor": {
+    "name_from_user": "SM300",
+    "voltage_V": 3,
+    "body_diameter_mm": 25,
+    "body_length_mm": 13,
+    "shaft_projection_mm": 9,
+    "overall_axial_mm": 22,
+    "dimensions_source": "Human user",
+    "shaft_diameter_assumed_mm": 2,
+    "rpm": null,
+    "torque": null,
+    "stall_current": null
+  },
+  "motor_to_roller_ratio": 1,
+  "drive_status": "Direct-coupled test layout; no claim that low-speed torque is adequate",
+  "roller_gears_teeth": [
+    20,
+    20
+  ],
+  "gear_module_mm": 0.5,
+  "gear_note": "Sampled involutes; no root fillets, manufacturing tolerances or strength validation",
+  "freewheels": "Removed; not required for continuous-rotation DC drive",
+  "waste": "No take-up reel in this variant. Free exit; prior version retained separately.",
+  "no_label_sensor": "Timed PWM test only; repeatable length requires rotation feedback or other registration.",
+  "unverified": [
+    "effective rubber diameter and compression",
+    "traction and cumulative label registration error",
+    "web thickness and nip force",
+    "brake torque and passive axial support",
+    "motor shaft diameter, terminals and mounting details",
+    "gear phasing, backlash and printable tooth size",
+    "SM300 low-speed torque, RPM and current",
+    "shaft locks, fits, fastening and bearing life",
+    "free waste snagging on moving arm",
+    "wrist interface, head mass and arm payload"
+  ],
+  "checks": [
+    {
+      "name": "SupplyRoll",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SupplyCore",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SupplyFlanges",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "SupplyAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeArm",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeScrew",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeKnob",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakePad",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedCore",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedRubber",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedShaft",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchRoller",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchBlock",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchBlock001",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedGear",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchGear",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SM300Body",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SM300Shaft",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorCoupling",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorTerminals",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "MotorSaddle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorClamp",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorSaddle001",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorClamp001",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorBase",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorSupport",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PeelPlate",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ApplicationRoller",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ApplicationAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RearCheek",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FrontCheek",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RearBridge",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BottomBridge",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "WristAdapter",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "AdapterSpacer",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "IncomingLabels",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "StrippedLiner",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FreeWasteTail",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PresentedLabel",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BoxWall",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "HeadTravel",
+      "valid": true,
+      "solids": 1
+    }
+  ],
+  "electrical": {
+    "driver_candidate": "DRV8833, voltage compatibility only; module/current validation pending",
+    "motor_supply_V": 3,
+    "controller": "ESP32 3.3V logic, common GND; not motor power",
+    "warning": "Driver is not a step-down voltage regulator. Never connect motor to servo 6V rail directly."
+  },
+  "sources": [
+    "Human user: motor nominal voltage and envelope",
+    "https://www.ti.com/product/DRV8833"
+  ]
+}

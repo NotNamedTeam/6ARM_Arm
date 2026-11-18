@@ -1,3 +1,5 @@
 *.a3d binary
 *.m3d binary
 *.stl binary
+*.FCStd binary
+*.step -whitespace

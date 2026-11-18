@@ -1,0 +1,113 @@
+{
+  "result": "passed",
+  "hardware_connection": "none",
+  "started_at": "2026-11-12T12:57:38.600596+00:00",
+  "model_sha256": "561286fa48444eb77c7ccb6cea54e4b3252fa887bcf044a12c8dfdbacbc3a3b7",
+  "box_front_y_mm": 95.0,
+  "positions_mm": {
+    "home": {
+      "y": 39.16700376675236,
+      "z": 324.792351468897
+    },
+    "approach": {
+      "y": 88.73626067800404,
+      "z": 308.86468041584646
+    },
+    "contact": {
+      "y": 94.99439297212237,
+      "z": 310.2938236043422
+    },
+    "after_downstroke": {
+      "y": 94.9981788950939,
+      "z": 290.161147059985
+    },
+    "retreated": {
+      "y": 74.95101528270081,
+      "z": 295.155851977028
+    },
+    "returned_home": {
+      "y": 39.05844229015944,
+      "z": 324.67807907066043
+    }
+  },
+  "joint_phases": [
+    {
+      "phase": "Вертикальная опорная поза",
+      "targets": {
+        "base_yaw_joint": 0,
+        "shoulder_joint": 0,
+        "elbow_joint": 0,
+        "wrist_pitch_joint": 0,
+        "wrist_roll_joint": 0
+      },
+      "measured": {
+        "base_yaw_joint": -1.5221250841235097e-16,
+        "shoulder_joint": 4.5575405410349046e-05,
+        "elbow_joint": 8.209573111152213e-05,
+        "wrist_pitch_joint": -0.001083041270609647,
+        "wrist_roll_joint": -6.717418577579482e-06
+      }
+    },
+    {
+      "phase": "Подвод с номинальным зазором 10 мм",
+      "targets": {
+        "shoulder_joint": -0.6982739503001905,
+        "elbow_joint": 0.575241953576788,
+        "wrist_pitch_joint": 0.12303199672340248
+      },
+      "measured": {
+        "shoulder_joint": -0.7154238129577846,
+        "elbow_joint": 0.5758674178609351,
+        "wrist_pitch_joint": 0.12133951004006217
+      }
+    },
+    {
+      "phase": "Прижать верхний край этикетки",
+      "targets": {
+        "shoulder_joint": -0.5877642555482886,
+        "elbow_joint": 0.20269532160645004,
+        "wrist_pitch_joint": 0.38506893394183855
+      },
+      "measured": {
+        "shoulder_joint": -0.5964447202219774,
+        "elbow_joint": 0.2023491077174707,
+        "wrist_pitch_joint": 0.4023121440228361
+      }
+    },
+    {
+      "phase": "Отвод ролика",
+      "targets": {
+        "wrist_pitch_joint": 0.20262182091418654
+      },
+      "measured": {
+        "wrist_pitch_joint": 0.1976263789113518
+      }
+    },
+    {
+      "phase": "Возврат к исходной позиции",
+      "targets": {
+        "base_yaw_joint": 0,
+        "shoulder_joint": 0,
+        "elbow_joint": 0,
+        "wrist_pitch_joint": 0,
+        "wrist_roll_joint": 0
+      },
+      "measured": {
+        "base_yaw_joint": -7.104081739885103e-17,
+        "shoulder_joint": 0.016246527336303846,
+        "elbow_joint": -0.017093054731277396,
+        "wrist_pitch_joint": -0.008107445038722136,
+        "wrist_roll_joint": 0.00023315898256474695
+      }
+    }
+  ],
+  "contact_model": "visual alignment only; carton and label have no collision or adhesive physics",
+  "feed": {
+    "target_liner_mm": 22,
+    "computed_feed_mm": 22.1309999859804,
+    "feed_angle_rad": 4.42619999719608,
+    "pinch_angle_rad": 4.426199997048469,
+    "note": "Joint feedback only: no flexible liner or adhesion model"
+  },
+  "finished_at": "2026-11-12T12:59:40.152176+00:00"
+}

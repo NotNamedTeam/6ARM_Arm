@@ -1,0 +1,295 @@
+"""Visible layout concept: metering nip, slipping rewind, passive supply brake.
+Not a flexible-web simulation, manufacturing drawing or physical robot command.
+"""
+from pathlib import Path
+import json
+import math
+import FreeCAD as App
+import FreeCADGui as Gui
+import Part
+from PySide import QtCore
+
+
+def build_label_applicator_v4():
+    dest = Path(__file__).resolve().parent
+    V = App.Vector
+    doc = App.newDocument('LabelApplicator_v4_SG90')
+    doc.Label = 'Лепилка v4 — SG90, шестерни, свободный выход подложки'
+    Gui.activateWorkbench('PartWorkbench')
+    view = Gui.activeDocument().activeView()
+    groups, shapes = {}, []
+    blue, steel = (0.25,0.47,0.70), (0.64,0.68,0.72)
+    orange, rubber = (0.95,0.43,0.12), (0.12,0.17,0.20)
+    for name,label in [('Supply','01 Подающая катушка и винтовой тормоз'),
+                       ('Nip','02 ПРОТЯЖНАЯ ПАРА — после отделения этикетки'),
+                       ('Gears','03 Шестерни протяжки и обгонные муфты'),
+                       ('Drive','04 SG90 — порционный ход и свободный возврат'),
+                       ('Frame','05 Корпус — передняя боковина скрыта'),
+                       ('Web','06 Путь ленты'),('Reference','07 Коробка — справочно')]:
+        g = doc.addObject('App::DocumentObjectGroup',name)
+        g.Label = label
+        groups[name] = g
+
+    def add(name,label,shape,color,parent,transparency=0):
+        obj = doc.addObject('Part::Feature',name)
+        obj.Label, obj.Shape = label, shape
+        obj.ViewObject.ShapeColor = color
+        obj.ViewObject.LineColor = (0.15,0.17,0.19)
+        obj.ViewObject.DisplayMode = 'Flat Lines'
+        obj.ViewObject.Transparency = transparency
+        groups[parent].addObject(obj)
+        shapes.append(obj)
+        doc.recompute()
+        view.viewAxonometric(); view.fitAll(); Gui.updateGui()
+        print(label,flush=True)
+        return obj
+
+    def cyl(r,l,y,z,x=None):
+        return Part.makeCylinder(r,l,V(-l/2 if x is None else x,y,z),V(1,0,0))
+
+    def ring(ro,ri,l,y,z,x):
+        return cyl(ro,l,y,z,x).cut(cyl(ri,l+0.2,y,z,x-0.1))
+
+    def ribbon(points,t=0.09,w=20):
+        up = [V(-w/2,y,z+t/2) for y,z in points]
+        down = [V(-w/2,y,z-t/2) for y,z in reversed(points)]
+        return Part.Face(Part.makePolygon(up+down+[up[0]])).extrude(V(w,0,0))
+
+    def beam(a,b,r=0.8):
+        return Part.makeCylinder(r,(b-a).Length,a,b-a)
+
+    def gear(teeth,y,z,x,bore=1.6,phase=0,width=3,module=0.5):
+        # Sampled 20-degree involute. No root fillet or manufacturing allowance.
+        rp=module*teeth/2; rb=rp*math.cos(math.radians(20))
+        rf=rp-1.25*module; ra=rp+module
+        def inv(r):
+            t=math.sqrt(max(0,(r/rb)**2-1)); return t-math.atan(t)
+        halfbase=math.pi/(2*teeth)+inv(rp)
+        def half(r): return halfbase-inv(max(r,rb))
+        def point(r,a): return V(x,y+r*math.cos(a),z+r*math.sin(a))
+        points=[]
+        for j in range(teeth):
+            a=phase+2*math.pi*j/teeth
+            points.append(point(rf,a-halfbase))
+            for i in range(9):
+                r=rb+(ra-rb)*i/8; points.append(point(r,a-half(r)))
+            for i in range(1,5): points.append(point(ra,a-half(ra)+2*half(ra)*i/4))
+            for i in range(1,9):
+                r=ra-(ra-rb)*i/8; points.append(point(r,a+half(r)))
+            points.append(point(rf,a+halfbase))
+            for i in range(1,4):
+                end=2*math.pi/teeth-2*halfbase
+                points.append(point(rf,a+halfbase+end*i/4))
+        solid=Part.Face(Part.makePolygon(points+[points[0]])).extrude(V(width,0,0))
+        return solid.cut(cyl(bore,width+0.2,y,z,x-0.1))
+
+    # Return run is tangent to the currently represented R10 rewind roll.
+    # A different winding radius changes the run AFTER the nip, not metering diameter.
+    py,pz,cy,cz = 32.0,1.35,-8.0,-17.0
+    vy,vz = py-cy,pz-cz
+    d2 = vy*vy+vz*vz
+    k, h = 100/d2, 10*math.sqrt(d2-100)/d2
+    ty,tz = cy+k*vy-h*vz,cz+k*vz+h*vy
+    ny = 6.0
+    nz = pz+(ny-py)*(tz-pz)/(ty-py)
+    length = math.hypot(ty-py,tz-pz)
+    dy,dz = (ty-py)/length,(tz-pz)/length
+    normal_y,normal_z = -dz,dy
+    fy,fz = ny+5.045*normal_y,nz+5.045*normal_z
+    iy,iz = ny-5.045*normal_y,nz-5.045*normal_z
+
+    params = doc.addObject('App::FeaturePython','ConceptParameters')
+    params.Label = 'Справочные параметры — не управляющие размеры'
+    for name,value in [('WebWidth',20),('FeedRollerDiameter',10),('NipGap',0.09),
+                       ('AssumedLabelPitch',22),('SupplyDiameter',30),('RewindDiameter',20)]:
+        params.addProperty('App::PropertyLength',name,'Layout'); setattr(params,name,value)
+    params.addProperty('App::PropertyString','FeedRule','Layout')
+    params.FeedRule = 'L = pi * Dэфф * n; для шага 22 мм и Dэфф=10 мм: 0.7003 оборота. Реальный шаг неизвестен.'
+    params.addProperty('App::PropertyString','Status','Layout')
+    params.Status = 'Макет. Обычный SG90: порционная подача, обгонная муфта + стопор обратного хода. Посадки и усилия не проверены.'
+    params.addProperty('App::PropertyString','ServoCycle','Layout')
+    params.ServoCycle = 'Шестерни 30:20 дают 1,5 оборота ролика на оборот SG90; шаг 22 мм требует ~168,1 градуса. Обратный ход развязан муфтой.'
+
+    # Supply roll: static shaft, rotating spool, pad on outside spool flange.
+    add('SupplyRoll','Подача — условный рулон Ø30 × 20',ring(15,5,20,-8,28,-10),(0.91,0.86,0.66),'Supply')
+    add('SupplyCore','Втулка подачи на неподвижной оси',ring(5,1.65,22,-8,28,-11),blue,'Supply')
+    add('SupplyFlanges','Боковые диски подачи — тормозим левый',
+        ring(16,1.65,1,-8,28,-11.2).fuse(ring(16,1.65,1,-8,28,10.2)),blue,'Supply')
+    add('SupplyAxle','Неподвижная ось подачи Ø3',cyl(1.5,34,-8,28),steel,'Supply')
+    brake_arm = Part.makeBox(3,8,10,V(-16,-12,28))
+    brake_arm = brake_arm.cut(cyl(1.3,5,-8,35,-17))
+    add('BrakeArm','Неподвижный кронштейн резьбового тормоза',brake_arm,blue,'Supply')
+    add('BrakeScrew','Винт M3: приближает накладку к диску, резьба условно',
+        cyl(1.5,9.2,-8,35,-21),steel,'Supply')
+    add('BrakeKnob','Ручка тормоза: сильнее затянули — больше сопротивление',
+        cyl(3,3,-8,35,-24),orange,'Supply')
+    add('BrakePad','Тормозная накладка — касается левого диска катушки',
+        cyl(2.2,0.6,-8,35,-11.8),(0.64,0.29,0.22),'Supply')
+
+    # The nip is on the stripped liner, NOT on the incoming adhesive labels.
+    add('FeedCore','Ведущий протяжной ролик — жёсткая сердцевина',
+        ring(3.5,1.6,22,fy,fz,-11),blue,'Nip')
+    add('FeedRubber','Ведущий ролик — резиновая поверхность, Ø10 × 22',
+        ring(5,3.5,22,fy,fz,-11),rubber,'Nip')
+    add('FeedShaft','Вал ведущего ролика Ø3 — под обгонные муфты и шестерню',
+        cyl(1.5,48,fy,fz,-26),steel,'Nip')
+    add('PinchRoller','Второй ролик с другой стороны подложки — свободный Ø10',
+        ring(5,1.65,22,iy,iz,-11),(0.30,0.36,0.42),'Nip')
+    add('PinchAxle','Ось прижимного ролика — перестановка в коротких пазах',
+        cyl(1.5,36,iy,iz),steel,'Nip')
+    for x in (-16.5,14.0):
+        add('PinchBlock','Регулируемый блок оси — фиксация M3, прижим подобрать',
+            Part.makeBox(2.5,7,7,V(x,iy-3.5,iz-3.5)).cut(cyl(1.55,3,iy,iz,x-0.25)),
+            orange,'Nip')
+
+    # SG90 reciprocates. Freewheels separate working and return strokes.
+    mesh_angle=math.atan2(iz-fz,iy-fy)
+    add('FeedGear','Шестерня ведущего ролика — 20 зубьев, m0,5',
+        gear(20,fy,fz,-19,phase=mesh_angle),(0.87,0.72,0.26),'Gears')
+    add('PinchGear','Шестерня второго ролика — 20 зубьев, встречное вращение',
+        gear(20,iy,iz,-19,phase=mesh_angle+math.pi+math.pi/20),(0.94,0.84,0.44),'Gears')
+    sy,sz=fy-12.5,fz
+    add('ServoGear','Шестерня SG90 — 30 зубьев, m0,5',
+        gear(30,sy,sz,15.5,bore=1.1,phase=math.pi/30),orange,'Drive')
+    inp=gear(20,fy,fz,15.5,bore=3.3,phase=math.pi).fuse(ring(4,3.3,6,fy,fz,15))
+    add('InputGear','Входная шестерня 20 зубьев — вращается вокруг муфты',inp,(0.87,0.72,0.26),'Drive')
+    add('DrivingFreewheel','Обгонная муфта привода — условный габарит 3 × 6,5 × 6',
+        ring(3.25,1.5,6,fy,fz,15),(0.72,0.32,0.66),'Gears')
+    add('BackstopFreewheel','Стопор обратного хода — вторая обгонная муфта',
+        ring(3.25,1.5,6,fy,fz,-25),(0.72,0.32,0.66),'Gears')
+    stop=Part.makeBox(6,13,10,V(-25,fy-5,fz-5)).cut(cyl(3.3,7,fy,fz,-25.5))
+    stop=stop.fuse(Part.makeBox(10,3,10,V(-25,fy+7,fz-5)))
+    add('BackstopHolder','Неподвижная опора стопорной муфты — крепление уточнить',stop,blue,'Frame')
+    add('ServoHornAdapter','Шестерня крепится через штатную качалку SG90, не печатный шлиц',
+        ring(3.5,1.1,2.5,sy,sz,18.5),(0.89,0.89,0.84),'Drive')
+    # TowerPro reference envelope; clones differ. Shaft axis is global X.
+    add('SG90Body','SG90 — условный корпус 23 × 12,2 мм, общий осевой габарит ~29',
+        Part.makeBox(23,23,12.2,V(24,sy-17.5,sz-6.1)),(0.15,0.40,0.81),'Drive',12)
+    add('SG90Boss','Верхний поясок корпуса SG90 — условно',cyl(5.5,1,sy,sz,23),(0.15,0.40,0.81),'Drive')
+    add('SG90Output','Выход SG90 — шлицы не моделируются',cyl(2.4,2,sy,sz,21),steel,'Drive')
+    ears=Part.makeBox(2,32.2,12.2,V(29,sy-22.1,sz-6.1))
+    for yy in (sy-19.8,sy+7.8): ears=ears.cut(cyl(1.1,3,yy,sz,28.5))
+    add('SG90Ears','Уши крепления SG90 — размеры сверить с вашим приводом',ears,(0.15,0.40,0.81),'Drive')
+    cradle=Part.makeBox(2,34,18,V(31,sy-23,sz-9))
+    cradle=cradle.cut(Part.makeBox(4,23.6,12.8,V(30,sy-17.8,sz-6.4)))
+    for yy in (sy-19.8,sy+7.8): cradle=cradle.cut(cyl(1.2,4,yy,sz,30))
+    cradle=cradle.fuse(Part.makeBox(34,34,2,V(15,sy-23,sz-11)))
+    add('ServoCradle','Опора SG90 — компоновка, отверстия и крепёж проверить',cradle,blue,'Frame')
+
+    # Peel and application roller remain at the nose.
+    p=[V(-11,y,z) for y,z in [(23,1),(31.8,1.4),(32,2),(23,3.2),(23,1)]]
+    add('PeelPlate','Отделяющая гладкая кромка — не режущий нож',Part.Face(Part.makePolygon(p)).extrude(V(22,0,0)),orange,'Web')
+    add('ApplicationRoller','Мягкий ролик прижима этикетки к коробке — свободный Ø14',ring(7,1.65,22,32,15,-11),rubber,'Web')
+    add('ApplicationAxle','Ось прижима этикетки к коробке',cyl(1.5,30,32,15),steel,'Web')
+
+    profile=[(-23,-22),(20,-22),(36,-5),(36,23),(11,45),(-23,45)]
+    def cheek(x):
+        p=[V(x,y,z) for y,z in profile]; p.append(p[0])
+        sh=Part.Face(Part.makePolygon(p)).extrude(V(2.4,0,0))
+        for y,z,wy,hz in [(-19,13,32,28),(-19,-20,34,15),(0,-1,23,11)]:
+            sh=sh.cut(Part.makeBox(5,wy,hz,V(x-1,y,z)))
+        for y,z,r in [(-8,28,4.5),(fy,fz,4.5),(iy,iz,4.5)]:
+            sh=sh.fuse(cyl(r,2.4,y,z,x))
+            sh=sh.fuse(Part.makeBox(2.4,y+23,3,V(x,-23,z-1.5)))
+        if x<0: sh=sh.fuse(Part.makeBox(2.4,4,10,V(x,-10,28)))
+        for y,z in [(-8,28),(fy,fz),(32,15)]:
+            sh=sh.cut(cyl(1.65,5,y,z,x-1))
+        # Short normal-direction slot for adjusting the passive nip roller.
+        a=V(x-1,iy-normal_y,iz-normal_z); b=V(x-1,iy+normal_y,iz+normal_z)
+        slot=cyl(1.65,5,a.y,a.z,a.x).fuse(cyl(1.65,5,b.y,b.z,b.x))
+        pts=[V(x-1,a.y+1.65*dy,a.z+1.65*dz),V(x-1,b.y+1.65*dy,b.z+1.65*dz),
+             V(x-1,b.y-1.65*dy,b.z-1.65*dz),V(x-1,a.y-1.65*dy,a.z-1.65*dz)]
+        slot=slot.fuse(Part.Face(Part.makePolygon(pts+[pts[0]])).extrude(V(5,0,0)))
+        sh=sh.cut(slot)
+        if x<0: sh=sh.cut(cyl(1.7,5,-8,35,x-1))
+        return sh.removeSplitter()
+    rear=add('RearCheek','Задняя боковина — рулон и протяжная пара',cheek(-15),blue,'Frame',65)
+    front=add('FrontCheek','Передняя боковина — скрыта для обзора',cheek(12.6),blue,'Frame',85)
+    front.Visibility=False
+    rear_bridge=Part.makeBox(25.2,3,50,V(-12.6,-23,-18))
+    rear_bridge=rear_bridge.cut(Part.makeBox(21.6,5,7,V(-10.8,-24,-13)))
+    add('RearBridge','Задняя перемычка с окном выхода подложки',rear_bridge,blue,'Frame')
+    add('BottomBridge','Нижняя перемычка — катушка сбора убрана',Part.makeBox(25.2,18,2.4,V(-12.6,-20,-23)),blue,'Frame')
+    mount=Part.makeBox(28,24,3,V(-14,-24,-27))
+    for x in (-7,7): mount=mount.cut(Part.makeCylinder(1.65,5,V(x,-12,-28),V(0,0,1)))
+    add('WristAdapter','Условное крепление к кисти — уточнить посадку',mount,(0.38,0.43,0.49),'Frame')
+    add('AdapterSpacer','Связь переходника с корпусом',Part.makeBox(25.2,12,1,V(-12.6,-20,-24)),blue,'Frame')
+    add('IncomingLabels','Лента с этикетками: рулон → острая кромка',ribbon([(-11.29,13.37),(32,2)],0.14),(0.91,0.79,0.38),'Web')
+    exit_z=pz+(-25-py)*(tz-pz)/(ty-py)
+    add('StrippedLiner','Голая подложка: кромка → МЕЖДУ роликами → окно выхода',
+        ribbon([(py,pz),(ny,nz),(-25,exit_z)]),(0.30,0.79,0.81),'Web')
+    add('FreeWasteTail','Свободный хвост подложки — НЕ намотка, собрать у основания',
+        ribbon([(-25,exit_z),(-31,-15),(-32,-29)]),(0.30,0.79,0.81),'Reference')
+    add('PresentedLabel','Этикетка выступает к коробке примерно на 7 мм',ribbon([(32,2.2),(38.7,0.3)],0.18),orange,'Web')
+    add('BoxWall','Коробка — вертикальная стенка, справочно',Part.makeBox(46,3,82,V(-23,39,-34)),(0.69,0.53,0.33),'Reference',80)
+    arrow=Part.makeCylinder(0.8,17,V(20,35,37),V(0,0,-1)).fuse(Part.makeCone(2.6,0,5,V(20,35,20),V(0,0,-1)))
+    add('HeadTravel','Головка проходит ВНИЗ, прижимая этикетку',arrow,(0.87,0.15,0.16),'Reference')
+
+    doc.recompute()
+    bounds=Part.makeCompound([o.Shape for o in shapes if o not in groups['Reference'].Group]).BoundBox
+    checks=[{'name':o.Name,'valid':o.Shape.isValid(),'solids':len(o.Shape.Solids)} for o in shapes]
+    report={'status':'LAYOUT ONLY — not print ready, not a dynamics validation',
+            'head_bounds_xyz_mm':[bounds.XLength,bounds.YLength,bounds.ZLength],
+            'nip_centres_yz_mm':{'drive':[fy,fz],'idler':[iy,iz],'liner':[ny,nz]},
+            'nominal_feed_diameter_mm':10,'nominal_gap_mm':0.09,
+            'assumed_pitch_mm':22,'turns_per_assumed_label':22/(10*math.pi),
+            'servo':'SG90 standard limited-angle: pulse feed, not continuous rotation',
+            'servo_gears_teeth':[30,20],
+            'servo_travel_for_22mm_deg':22/(10*math.pi)*360/1.5,
+            'max_feed_at_180deg_mm':math.pi*10*1.5/2,
+            'roller_gears_teeth':[20,20], 'gear_module_mm':0.5,
+            'gear_note':'Sampled involutes; no root fillets, manufacturing tolerances or strength validation',
+            'freewheels':'Drive + backstop envelopes 3 x 6.5 x 6; NOT radial support bearings. Shaft/housing requirements unverified.',
+            'waste':'No take-up reel in this variant. Free exit; prior version retained separately.',
+            'no_label_sensor':'Servo increment with one-way coupling; backlash and slip require testing.',
+            'unverified':['effective rubber diameter and compression','traction and cumulative label registration error',
+                          'web thickness and nip force','brake torque and passive axial support',
+                          'freewheel orientation, shaft hardness, fits and radial supports',
+                          'gear phasing, backlash and printable tooth size','SG90 usable stroke and feed repeatability',
+                          'shaft locks, fits, fastening and bearing life','free waste snagging on moving arm',
+                          'wrist interface, head mass and arm payload'],
+            'checks':checks,
+            'sources':['https://towerpro.com.tw/product/sg90-7/',
+                       'https://www.schaeffler.com/remotemedien/media/_shared_media/08_media_library/01_publications/schaeffler_2/brochure/downloads_1/ohf_de_en.pdf',
+                       'https://www.psbearings.com/html_products/hf-series-one-way-bearing-106.html']}
+    (dest/'concept_report_v4.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    doc.saveAs(str(dest/'LabelApplicator_v4_SG90.FCStd'))
+
+    def side():
+        view.viewRight();view.fitAll();Gui.updateGui();QtCore.QTimer.singleShot(1000,save_side)
+    def save_side():
+        view.saveImage(str(dest/'side_preview_v4.png'),1500,1100,'White')
+        view.viewAxonometric();view.fitAll();Gui.updateGui();QtCore.QTimer.singleShot(1000,finish)
+    def finish():
+        view.saveImage(str(dest/'assembly_preview_v4.png'),1500,1100,'White')
+        doc.save()
+        print('ГОТОВО v4:',doc.FileName,'габарит',report['head_bounds_xyz_mm'],flush=True)
+        # A persistent, narrowly scoped control file for later VIEW changes.
+        # It permits no code execution or hardware control.
+        last_command=[None]
+        def review_control():
+            command_file=dest/'review_control_v4.json'
+            if not command_file.exists(): return
+            try:
+                command=json.loads(command_file.read_text(encoding='utf-8'))
+                if command.get('sequence')==last_command[0]: return
+                last_command[0]=command.get('sequence')
+                if command.get('view')=='gears':
+                    for o in shapes: o.Visibility=o in groups['Gears'].Group or o in groups['Drive'].Group or o in groups['Nip'].Group
+                    view.viewAxonometric()
+                    view.setCameraOrientation(App.Rotation(V(0,0,1),180).multiply(view.getCameraOrientation()).Q)
+                    view.fitAll();Gui.updateGui()
+                    QtCore.QTimer.singleShot(800,lambda:view.saveImage(str(dest/'gear_detail_v4.png'),1500,1100,'White'))
+                elif command.get('view')=='assembly':
+                    for o in shapes: o.Visibility=True
+                    front.Visibility=False
+                    view.viewAxonometric();view.fitAll();Gui.updateGui()
+                elif command.get('view')=='close_saved':
+                    doc.save();App.closeDocument(doc.Name);Gui.getMainWindow().close()
+            except Exception as e: App.Console.PrintError(str(e)+'\n')
+        timer=QtCore.QTimer(Gui.getMainWindow());timer.timeout.connect(review_control);timer.start(500)
+        globals().setdefault('_LABEL_APP_V4_TIMERS',[]).append(timer)
+    QtCore.QTimer.singleShot(1000,side)
+
+
+build_label_applicator_v4()

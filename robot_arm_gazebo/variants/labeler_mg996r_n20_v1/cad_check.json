@@ -1,0 +1,22 @@
+{
+  "status": "CAD checked; real fits, strength and flexible web not tested",
+  "assembly_links": 62,
+  "head_features": 37,
+  "invalid_links": [],
+  "invalid_head_features": [],
+  "wrist_servo_case_overlap_mm3": 0.0,
+  "wrist_servo_case_clearance_mm": 0.2999999999999545,
+  "head_mount_case_clearance_mm": 0.9500000000000455,
+  "n20_bracket_motor_overlap_mm3": 0.0,
+  "n20_bracket_motor_clearance_mm": 0.29999999999999893,
+  "gazebo_joints": [
+    "base_yaw_joint",
+    "shoulder_joint",
+    "elbow_joint",
+    "wrist_pitch_joint",
+    "wrist_roll_joint",
+    "feed_joint",
+    "pinch_joint"
+  ],
+  "source_paths_self_contained": true
+}

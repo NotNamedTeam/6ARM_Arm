@@ -1,0 +1,250 @@
+"""Visible layout concept: metering nip, slipping rewind, passive supply brake.
+Not a flexible-web simulation, manufacturing drawing or physical robot command.
+"""
+from pathlib import Path
+import json
+import math
+import FreeCAD as App
+import FreeCADGui as Gui
+import Part
+from PySide import QtCore
+
+
+def build_label_applicator_v3():
+    dest = Path(__file__).resolve().parent
+    V = App.Vector
+    doc = App.newDocument('LabelApplicator_v3_Nip')
+    doc.Label = 'Лепилка v3 — протяжная пара после кромки'
+    Gui.activateWorkbench('PartWorkbench')
+    view = Gui.activeDocument().activeView()
+    groups, shapes = {}, []
+    blue, steel = (0.25,0.47,0.70), (0.64,0.68,0.72)
+    orange, rubber = (0.95,0.43,0.12), (0.12,0.17,0.20)
+    for name,label in [('Supply','01 Подающая катушка и винтовой тормоз'),
+                       ('Nip','02 ПРОТЯЖНАЯ ПАРА — после отделения этикетки'),
+                       ('Rewind','03 Сбор подложки — ремень и фрикционная муфта'),
+                       ('Drive','04 Один N20 — приводит протяжной ролик'),
+                       ('Frame','05 Корпус — передняя боковина скрыта'),
+                       ('Web','06 Путь ленты'),('Reference','07 Коробка — справочно')]:
+        g = doc.addObject('App::DocumentObjectGroup',name)
+        g.Label = label
+        groups[name] = g
+
+    def add(name,label,shape,color,parent,transparency=0):
+        obj = doc.addObject('Part::Feature',name)
+        obj.Label, obj.Shape = label, shape
+        obj.ViewObject.ShapeColor = color
+        obj.ViewObject.LineColor = (0.15,0.17,0.19)
+        obj.ViewObject.DisplayMode = 'Flat Lines'
+        obj.ViewObject.Transparency = transparency
+        groups[parent].addObject(obj)
+        shapes.append(obj)
+        doc.recompute()
+        view.viewAxonometric(); view.fitAll(); Gui.updateGui()
+        print(label,flush=True)
+        return obj
+
+    def cyl(r,l,y,z,x=None):
+        return Part.makeCylinder(r,l,V(-l/2 if x is None else x,y,z),V(1,0,0))
+
+    def ring(ro,ri,l,y,z,x):
+        return cyl(ro,l,y,z,x).cut(cyl(ri,l+0.2,y,z,x-0.1))
+
+    def ribbon(points,t=0.09,w=20):
+        up = [V(-w/2,y,z+t/2) for y,z in points]
+        down = [V(-w/2,y,z-t/2) for y,z in reversed(points)]
+        return Part.Face(Part.makePolygon(up+down+[up[0]])).extrude(V(w,0,0))
+
+    def beam(a,b,r=0.8):
+        return Part.makeCylinder(r,(b-a).Length,a,b-a)
+
+    # Return run is tangent to the currently represented R10 rewind roll.
+    # A different winding radius changes the run AFTER the nip, not metering diameter.
+    py,pz,cy,cz = 32.0,1.35,-8.0,-17.0
+    vy,vz = py-cy,pz-cz
+    d2 = vy*vy+vz*vz
+    k, h = 100/d2, 10*math.sqrt(d2-100)/d2
+    ty,tz = cy+k*vy-h*vz,cz+k*vz+h*vy
+    ny = 11.0
+    nz = pz+(ny-py)*(tz-pz)/(ty-py)
+    length = math.hypot(ty-py,tz-pz)
+    dy,dz = (ty-py)/length,(tz-pz)/length
+    normal_y,normal_z = -dz,dy
+    fy,fz = ny+5.045*normal_y,nz+5.045*normal_z
+    iy,iz = ny-5.045*normal_y,nz-5.045*normal_z
+
+    params = doc.addObject('App::FeaturePython','ConceptParameters')
+    params.Label = 'Справочные параметры — не управляющие размеры'
+    for name,value in [('WebWidth',20),('FeedRollerDiameter',10),('NipGap',0.09),
+                       ('AssumedLabelPitch',22),('SupplyDiameter',30),('RewindDiameter',20)]:
+        params.addProperty('App::PropertyLength',name,'Layout'); setattr(params,name,value)
+    params.addProperty('App::PropertyString','FeedRule','Layout')
+    params.FeedRule = 'L = pi * Dэфф * n; для шага 22 мм и Dэфф=10 мм: 0.7003 оборота. Реальный шаг неизвестен.'
+    params.addProperty('App::PropertyString','Status','Layout')
+    params.Status = 'Макет. N20 без энкодера не гарантирует число оборотов по времени. Зазор, прижим, тормоз и муфта не рассчитаны.'
+
+    # Supply roll: static shaft, rotating spool, pad on outside spool flange.
+    add('SupplyRoll','Подача — условный рулон Ø30 × 20',ring(15,5,20,-8,28,-10),(0.91,0.86,0.66),'Supply')
+    add('SupplyCore','Втулка подачи на неподвижной оси',ring(5,1.65,22,-8,28,-11),blue,'Supply')
+    add('SupplyFlanges','Боковые диски подачи — тормозим левый',
+        ring(16,1.65,1,-8,28,-11.2).fuse(ring(16,1.65,1,-8,28,10.2)),blue,'Supply')
+    add('SupplyAxle','Неподвижная ось подачи Ø3',cyl(1.5,34,-8,28),steel,'Supply')
+    brake_arm = Part.makeBox(3,8,10,V(-16,-12,28))
+    brake_arm = brake_arm.cut(cyl(1.3,5,-8,35,-17))
+    add('BrakeArm','Неподвижный кронштейн резьбового тормоза',brake_arm,blue,'Supply')
+    add('BrakeScrew','Винт M3: приближает накладку к диску, резьба условно',
+        cyl(1.5,9.2,-8,35,-21),steel,'Supply')
+    add('BrakeKnob','Ручка тормоза: сильнее затянули — больше сопротивление',
+        cyl(3,3,-8,35,-24),orange,'Supply')
+    add('BrakePad','Тормозная накладка — касается левого диска катушки',
+        cyl(2.2,0.6,-8,35,-11.8),(0.64,0.29,0.22),'Supply')
+
+    # The nip is on the stripped liner, NOT on the incoming adhesive labels.
+    add('FeedCore','Ведущий протяжной ролик — жёсткая сердцевина',
+        ring(3.5,1.6,22,fy,fz,-11),blue,'Nip')
+    add('FeedRubber','Ведущий ролик — резиновая поверхность, Ø10 × 22',
+        ring(5,3.5,22,fy,fz,-11),rubber,'Nip')
+    add('FeedShaft','Вал ведущего ролика — ременной шкив с левой стороны',
+        cyl(1.5,32,fy,fz,-24),steel,'Nip')
+    add('FeedCoupling','Соединительная втулка в сердцевине — посадки уточнить',
+        ring(3,1.6,7,fy,fz,5),orange,'Nip')
+    add('PinchRoller','Второй ролик с другой стороны подложки — свободный Ø10',
+        ring(5,1.65,22,iy,iz,-11),(0.30,0.36,0.42),'Nip')
+    add('PinchAxle','Ось прижимного ролика — перестановка в коротких пазах',
+        cyl(1.5,36,iy,iz),steel,'Nip')
+    for x in (-16.5,14.0):
+        add('PinchBlock','Регулируемый блок оси — фиксация M3, прижим подобрать',
+            Part.makeBox(2.5,7,7,V(x,iy-3.5,iz-3.5)).cut(cyl(1.55,3,iy,iz,x-0.25)),
+            orange,'Nip')
+
+    # One direct N20 on the metering roller. Reuse the manufacturer-size envelope.
+    add('N20Gearbox','N20 MP 6 В 210:1 — редуктор на протяжном ролике',
+        Part.makeBox(9,10,12,V(17,fy-5,fz-6)),(0.80,0.64,0.25),'Drive')
+    motor = cyl(6,16.6,fy,fz,26).common(Part.makeBox(17,10,12,V(26,fy-5,fz-6)))
+    add('N20Motor','Мотор N20 — не на катушке намотки',motor,steel,'Drive')
+    dshaft = cyl(1.5,9,fy,fz,8).cut(Part.makeBox(11,3,5,V(7,fy+1,fz-2.5)))
+    add('N20Dshaft','D-вал N20 Ø3 × 9',dshaft,steel,'Drive')
+    add('MotorNose','Центрирующий поясок N20 — условно Ø5',ring(2.5,1.6,1.5,fy,fz,15.5),steel,'Drive')
+    terms = Part.makeBox(2,0.5,1,V(42.6,fy-3,fz-0.5)).fuse(Part.makeBox(2,0.5,1,V(42.6,fy+2.5,fz-0.5)))
+    add('MotorTerminals','Контакты — оставить место для проводов',terms,(0.78,0.46,0.19),'Drive')
+    bracket = Part.makeBox(2,18,18,V(15,fy-9,fz-9)).cut(cyl(2.7,3,fy,fz,14.5))
+    for z in (fz-4.5,fz+4.5): bracket = bracket.cut(cyl(0.95,3,fy,z,14.5))
+    bracket = bracket.fuse(Part.makeBox(30,18,2,V(15,fy-9,fz-10)))
+    add('MotorBracket','Кронштейн привода протяжки',bracket,blue,'Frame')
+
+    # Rewind runs faster than needed at the minimum core radius and must SLIP.
+    add('RewindCore','Сбор подложки — катушка Ø10, растёт до условного Ø20',ring(5,1.6,22,cy,cz,-11),(0.30,0.66,0.57),'Rewind')
+    add('RewindPaper','Намотанная голая подложка — условно',ring(10,5.05,20,cy,cz,-10),(0.87,0.91,0.86),'Rewind')
+    add('RewindFlanges','Щёки накопительной катушки',
+        ring(11,1.6,1,cy,cz,-11.2).fuse(ring(11,1.6,1,cy,cz,10.2)),(0.30,0.66,0.57),'Rewind')
+    add('RewindShaft','Вал сборной катушки — соединён с выходом муфты',cyl(1.5,43,cy,cz,-26),steel,'Rewind')
+    for y,z,r,label in [(fy,fz,7.5,'Ведущий шкив Ø15'),(cy,cz,6,'Входной шкив муфты Ø12 — свободен на валу')]:
+        add('Pulley',label,ring(r,1.6,3,y,z,-22),(0.37,0.40,0.44),'Rewind')
+    add('ClutchPad','Фрикционная шайба — допускает проскальзывание намотки',
+        ring(5,1.6,1.5,cy,cz,-19),(0.66,0.30,0.22),'Rewind')
+    add('ClutchHub','Выходной диск муфты — закреплён на валу намотки',
+        ring(5,1.6,2,cy,cz,-17.5),steel,'Rewind')
+    add('ClutchAdjuster','Регулировочная гайка муфты — усилие не рассчитано',
+        ring(3.5,1.6,2.5,cy,cz,-24.5),orange,'Rewind')
+    # Schematic wave washer: axial compliance local to the clutch, NOT a dancer.
+    washer = ring(4,1.6,0.4,cy,cz,-22.5)
+    add('ClutchWasher','Упругая шайба муфты — осевой поджим, не натяжитель ленты',washer,steel,'Rewind')
+
+    # Open belt using exact external tangents; no crossing or forced synchronous rewind.
+    ay,az,by,bz,r1,r2 = fy,fz,cy,cz,7.5,6.0
+    uy,uz = by-ay,bz-az
+    distance = math.hypot(uy,uz); uy,uz = uy/distance,uz/distance
+    q=(r1-r2)/distance; s=math.sqrt(1-q*q)
+    normals=[(q*uy-sign*s*uz,q*uz+sign*s*uy) for sign in (-1,1)]
+    lines=[]
+    for sy,sz in normals:
+        lines.append(beam(V(-20.5,ay+r1*sy,az+r1*sz),V(-20.5,by+r2*sy,bz+r2*sz),0.55))
+    # Arc bands on the exposed sides of the pulleys close the two tangent runs.
+    for yy,zz,rr,orientation in [(ay,az,r1,1),(by,bz,r2,-1)]:
+        angles=[math.atan2(n[1],n[0]) for n in normals]
+        start,end=angles
+        while end<start: end+=2*math.pi
+        mid=(start+end)/2
+        if (math.cos(mid)*uy+math.sin(mid)*uz)*orientation>0:
+            start,end=end,start+2*math.pi
+        points=[V(-20.5,yy+rr*math.cos(start+(end-start)*i/32),zz+rr*math.sin(start+(end-start)*i/32)) for i in range(33)]
+        for a,b in zip(points,points[1:]): lines.append(beam(a,b,0.55))
+    add('RewindBelt','Ремень от протяжки к сбору: 1,25× по оборотам; муфта скользит',Part.makeCompound(lines),rubber,'Rewind')
+
+    # Peel and application roller remain at the nose.
+    p=[V(-11,y,z) for y,z in [(23,1),(31.8,1.4),(32,2),(23,3.2),(23,1)]]
+    add('PeelPlate','Отделяющая гладкая кромка — не режущий нож',Part.Face(Part.makePolygon(p)).extrude(V(22,0,0)),orange,'Web')
+    add('ApplicationRoller','Мягкий ролик прижима этикетки к коробке — свободный Ø14',ring(7,1.65,22,32,15,-11),rubber,'Web')
+    add('ApplicationAxle','Ось прижима этикетки к коробке',cyl(1.5,30,32,15),steel,'Web')
+
+    profile=[(-23,-30),(20,-30),(36,-5),(36,23),(11,45),(-23,45)]
+    def cheek(x):
+        p=[V(x,y,z) for y,z in profile]; p.append(p[0])
+        sh=Part.Face(Part.makePolygon(p)).extrude(V(2.4,0,0))
+        for y,z,wy,hz in [(-19,13,32,28),(-19,-28,34,23),(0,-1,23,11)]:
+            sh=sh.cut(Part.makeBox(5,wy,hz,V(x-1,y,z)))
+        for y,z,r in [(-8,28,4.5),(-8,-17,4.5),(fy,fz,4.5),(iy,iz,4.5)]:
+            sh=sh.fuse(cyl(r,2.4,y,z,x))
+            sh=sh.fuse(Part.makeBox(2.4,y+23,3,V(x,-23,z-1.5)))
+        if x<0: sh=sh.fuse(Part.makeBox(2.4,4,10,V(x,-10,28)))
+        for y,z in [(-8,28),(-8,-17),(fy,fz),(32,15)]:
+            sh=sh.cut(cyl(1.65,5,y,z,x-1))
+        # Short normal-direction slot for adjusting the passive nip roller.
+        a=V(x-1,iy-normal_y,iz-normal_z); b=V(x-1,iy+normal_y,iz+normal_z)
+        slot=cyl(1.65,5,a.y,a.z,a.x).fuse(cyl(1.65,5,b.y,b.z,b.x))
+        pts=[V(x-1,a.y+1.65*dy,a.z+1.65*dz),V(x-1,b.y+1.65*dy,b.z+1.65*dz),
+             V(x-1,b.y-1.65*dy,b.z-1.65*dz),V(x-1,a.y-1.65*dy,a.z-1.65*dz)]
+        slot=slot.fuse(Part.Face(Part.makePolygon(pts+[pts[0]])).extrude(V(5,0,0)))
+        sh=sh.cut(slot)
+        if x<0: sh=sh.cut(cyl(1.7,5,-8,35,x-1))
+        return sh.removeSplitter()
+    rear=add('RearCheek','Задняя боковина — опоры катушек и протяжной пары',cheek(-15),blue,'Frame',65)
+    front=add('FrontCheek','Передняя боковина — скрыта для обзора',cheek(12.6),blue,'Frame',85)
+    front.Visibility=False
+    add('RearBridge','Задняя перемычка',Part.makeBox(25.2,3,50,V(-12.6,-23,-18)),blue,'Frame')
+    add('BottomBridge','Нижняя перемычка',Part.makeBox(25.2,18,2.4,V(-12.6,-20,-31)),blue,'Frame')
+    mount=Part.makeBox(28,24,3,V(-14,-24,-35))
+    for x in (-7,7): mount=mount.cut(Part.makeCylinder(1.65,5,V(x,-12,-36),V(0,0,1)))
+    add('WristAdapter','Условное крепление к кисти — уточнить посадку',mount,(0.38,0.43,0.49),'Frame')
+    add('AdapterSpacer','Связь переходника с корпусом',Part.makeBox(25.2,12,1,V(-12.6,-20,-32)),blue,'Frame')
+    add('IncomingLabels','Лента с этикетками: рулон → острая кромка',ribbon([(-11.29,13.37),(32,2)],0.14),(0.91,0.79,0.38),'Web')
+    add('StrippedLiner','Голая подложка: кромка → МЕЖДУ роликами → сбор',ribbon([(py,pz),(ny,nz),(ty,tz)]),(0.30,0.79,0.81),'Web')
+    add('PresentedLabel','Этикетка выступает к коробке примерно на 7 мм',ribbon([(32,2.2),(38.7,0.3)],0.18),orange,'Web')
+    add('BoxWall','Коробка — вертикальная стенка, справочно',Part.makeBox(46,3,82,V(-23,39,-34)),(0.69,0.53,0.33),'Reference',80)
+    arrow=Part.makeCylinder(0.8,17,V(20,35,37),V(0,0,-1)).fuse(Part.makeCone(2.6,0,5,V(20,35,20),V(0,0,-1)))
+    add('HeadTravel','Головка проходит ВНИЗ, прижимая этикетку',arrow,(0.87,0.15,0.16),'Reference')
+
+    doc.recompute()
+    bounds=Part.makeCompound([o.Shape for o in shapes if o not in groups['Reference'].Group]).BoundBox
+    checks=[{'name':o.Name,'valid':o.Shape.isValid(),'solids':len(o.Shape.Solids)} for o in shapes]
+    report={'status':'LAYOUT ONLY — not print ready, not a dynamics validation',
+            'head_bounds_xyz_mm':[bounds.XLength,bounds.YLength,bounds.ZLength],
+            'nip_centres_yz_mm':{'drive':[fy,fz],'idler':[iy,iz],'liner':[ny,nz]},
+            'nominal_feed_diameter_mm':10,'nominal_gap_mm':0.09,
+            'assumed_pitch_mm':22,'turns_per_assumed_label':22/(10*math.pi),
+            'rewind_no_slip_speed_ratio':1.25,
+            'clutch':'Required slipping friction clutch. Both reels must NOT be rigidly speed-coupled.',
+            'no_label_sensor':'Possible open-loop after manual registration; motor turn control still needed for repeatability.',
+            'unverified':['effective rubber diameter and compression','traction and cumulative label registration error',
+                          'web thickness and nip force','brake and clutch torque','belt selection and tracking',
+                          'shaft locks, fits, fastening and bearing life','motor feedback / stepper choice',
+                          'wrist interface, head mass and arm payload'],
+            'checks':checks,
+            'sources':['https://www.qlc-labeling.com/wp-content/uploads/2019/05/3115NV_Manual_QLC.pdf',
+                       'https://www.pololu.com/product-info-merged/2369']}
+    (dest/'concept_report_v3.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    doc.saveAs(str(dest/'LabelApplicator_v3_Nip.FCStd'))
+
+    def side():
+        view.viewRight();view.fitAll();Gui.updateGui();QtCore.QTimer.singleShot(1000,save_side)
+    def save_side():
+        view.saveImage(str(dest/'side_preview_v3.png'),1500,1100,'White')
+        view.viewAxonometric();view.fitAll();Gui.updateGui();QtCore.QTimer.singleShot(1000,finish)
+    def finish():
+        view.saveImage(str(dest/'assembly_preview_v3.png'),1500,1100,'White')
+        doc.save()
+        print('ГОТОВО v3:',doc.FileName,'габарит',report['head_bounds_xyz_mm'],flush=True)
+    QtCore.QTimer.singleShot(1000,side)
+
+
+build_label_applicator_v3()

@@ -1,0 +1,155 @@
+{
+  "result": "passed",
+  "hardware_connection": "none",
+  "started_at": "2026-11-12T12:41:37.248221+00:00",
+  "model_sha256": "682dfe1accb5a0336d734025a5d0dc6c500fe042d1b0d7a0ab152e67ec6bee30",
+  "phases": [
+    {
+      "phase": "Вертикальная опорная поза",
+      "targets": {
+        "base_yaw_joint": 0,
+        "shoulder_joint": 0,
+        "elbow_joint": 0,
+        "wrist_pitch_joint": 0,
+        "wrist_roll_joint": 0
+      },
+      "measured": {
+        "base_yaw_joint": -4.793465708795324e-17,
+        "shoulder_joint": -0.00010054161797930549,
+        "elbow_joint": -0.00020206606908332225,
+        "wrist_pitch_joint": -0.0014265409396077128,
+        "wrist_roll_joint": -6.458556846941778e-05
+      }
+    },
+    {
+      "phase": "base_yaw_joint → смещение",
+      "targets": {
+        "base_yaw_joint": 0.5235987755982988
+      },
+      "measured": {
+        "base_yaw_joint": 0.5245071950059624
+      }
+    },
+    {
+      "phase": "base_yaw_joint → 0",
+      "targets": {
+        "base_yaw_joint": 0
+      },
+      "measured": {
+        "base_yaw_joint": 1.5726893601666162e-05
+      }
+    },
+    {
+      "phase": "shoulder_joint → смещение",
+      "targets": {
+        "shoulder_joint": 0.20943951023931956
+      },
+      "measured": {
+        "shoulder_joint": 0.21558722384696657
+      }
+    },
+    {
+      "phase": "shoulder_joint → 0",
+      "targets": {
+        "shoulder_joint": 0
+      },
+      "measured": {
+        "shoulder_joint": -0.001528378671982481
+      }
+    },
+    {
+      "phase": "elbow_joint → смещение",
+      "targets": {
+        "elbow_joint": -0.20943951023931956
+      },
+      "measured": {
+        "elbow_joint": -0.21838902510189204
+      }
+    },
+    {
+      "phase": "elbow_joint → 0",
+      "targets": {
+        "elbow_joint": 0
+      },
+      "measured": {
+        "elbow_joint": 0.0009392365995371711
+      }
+    },
+    {
+      "phase": "wrist_pitch_joint → смещение",
+      "targets": {
+        "wrist_pitch_joint": 0.20943951023931956
+      },
+      "measured": {
+        "wrist_pitch_joint": 0.2173893308086128
+      }
+    },
+    {
+      "phase": "wrist_pitch_joint → 0",
+      "targets": {
+        "wrist_pitch_joint": 0
+      },
+      "measured": {
+        "wrist_pitch_joint": -0.001301268139986856
+      }
+    },
+    {
+      "phase": "wrist_roll_joint → смещение",
+      "targets": {
+        "wrist_roll_joint": 0.3490658503988659
+      },
+      "measured": {
+        "wrist_roll_joint": 0.34930108014573774
+      }
+    },
+    {
+      "phase": "wrist_roll_joint → 0",
+      "targets": {
+        "wrist_roll_joint": 0
+      },
+      "measured": {
+        "wrist_roll_joint": 1.3064353179109225e-06
+      }
+    },
+    {
+      "phase": "Совместное движение к коробке",
+      "targets": {
+        "base_yaw_joint": 0.17453292519943295,
+        "shoulder_joint": 0.13962634015954636,
+        "elbow_joint": -0.13962634015954636,
+        "wrist_pitch_joint": 0.13962634015954636
+      },
+      "measured": {
+        "base_yaw_joint": 0.17458158847151772,
+        "shoulder_joint": 0.14196456589299325,
+        "elbow_joint": -0.1383001880434687,
+        "wrist_pitch_joint": 0.14448750579249114
+      }
+    },
+    {
+      "phase": "Вертикальная поза после цикла",
+      "targets": {
+        "base_yaw_joint": 0,
+        "shoulder_joint": 0,
+        "elbow_joint": 0,
+        "wrist_pitch_joint": 0,
+        "wrist_roll_joint": 0
+      },
+      "measured": {
+        "base_yaw_joint": 2.9773596341808875e-05,
+        "shoulder_joint": -0.00074870339413416,
+        "elbow_joint": -0.0006079044911189984,
+        "wrist_pitch_joint": -0.0016812634581156863,
+        "wrist_roll_joint": 3.598511372465099e-05
+      }
+    }
+  ],
+  "feed": {
+    "target_liner_mm": 22,
+    "computed_feed_mm": 22.19849998593762,
+    "feed_angle_rad": 4.439699997187524,
+    "pinch_angle_rad": 4.4396999970394475,
+    "note": "Joint feedback only: no flexible liner or adhesion model"
+  },
+  "finished_at": "2026-11-12T12:42:17.453326+00:00"
+}

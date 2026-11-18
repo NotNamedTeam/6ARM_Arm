@@ -1,0 +1,68 @@
+{
+  "status": "CAD and Gazebo prototype; physical mounting and label mechanics unverified",
+  "source_arm_variant": "robot_arm_gazebo/variants/mg996r_valet_v1",
+  "source_head_v5": "robot_arm_gazebo/label_applicator/LabelApplicator_v5_SM300.FCStd",
+  "motor": "Pololu 5143 N20 210:1 MP 6V with 12 CPR side connector encoder",
+  "motor_source": "https://www.pololu.com/product/5143/specs",
+  "head_features": [
+    "SupplyRoll",
+    "SupplyCore",
+    "SupplyFlanges",
+    "SupplyAxle",
+    "BrakeArm",
+    "BrakeScrew",
+    "BrakeKnob",
+    "BrakePad",
+    "FeedCore",
+    "FeedRubber",
+    "FeedShaft",
+    "PinchRoller",
+    "PinchAxle",
+    "PinchBlock",
+    "PinchBlock001",
+    "FeedGear",
+    "PinchGear",
+    "PeelPlate",
+    "ApplicationRoller",
+    "ApplicationAxle",
+    "RearCheek",
+    "FrontCheek",
+    "RearBridge",
+    "BottomBridge",
+    "IncomingLabels",
+    "StrippedLiner",
+    "PresentedLabel",
+    "N20Gearbox",
+    "N20MotorEncoder",
+    "N20Dshaft",
+    "ShaftCoupling",
+    "N20Mount",
+    "MG996RHeadMount",
+    "HeadMountRib"
+  ],
+  "axis_heights_mm": {
+    "wrist_plate": 240.195,
+    "wrist_roll": 287.045,
+    "head_origin": 318.045
+  },
+  "servo_replacements": [
+    "wrist pitch: inherited two-MG996R valet cradle",
+    "wrist roll: new split MG996R cradle"
+  ],
+  "unchanged_strong_joints": [
+    "base yaw",
+    "shoulder",
+    "elbow"
+  ],
+  "gripper": "removed; applicator replaces it",
+  "nominal_feed_mm_per_rev": 31.41592653589793,
+  "nominal_revolutions_per_22mm_pitch": 0.7002817496043395,
+  "limitations": [
+    "MG996R wrist roll limited to +/-60 degrees in Gazebo",
+    "N20 casing, connector and mount must be checked on purchased unit",
+    "existing wrist-plate bolt pattern is nominal; print fit coupon before parts",
+    "label pitch and feed diameter are assumptions; no label detection",
+    "Gazebo rollers rotate but flexible liner, peeling and adhesive contact are not simulated",
+    "case, head adapter, servo horn, wiring and payload not physically checked"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "status": "CAD checked; real fits, strength and flexible web not tested",
+  "assembly_links": 62,
+  "head_features": 38,
+  "invalid_links": [],
+  "invalid_head_features": [],
+  "head_mount_case_clearance_mm": 7.000017556762714,
+  "n20_bracket_motor_overlap_mm3": 0.0,
+  "n20_bracket_motor_clearance_mm": 0.29999999999999893,
+  "gazebo_joints": [
+    "base_yaw_joint",
+    "shoulder_joint",
+    "elbow_joint",
+    "wrist_pitch_joint",
+    "wrist_roll_joint",
+    "feed_joint",
+    "pinch_joint"
+  ],
+  "source_paths_self_contained": true,
+  "wrist_roll_housing": "original small wrist enclosure; MG90S body and spline not yet fit-checked",
+  "head_mount_case_overlap_mm3": 0.0,
+  "adapter_to_housing_gap_mm": 1.7556762713866192e-05,
+  "adapter_to_head_mount_gap_mm": 0.0
+}

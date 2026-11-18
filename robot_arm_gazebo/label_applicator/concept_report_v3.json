@@ -1,0 +1,280 @@
+{
+  "status": "LAYOUT ONLY — not print ready, not a dynamics validation",
+  "head_bounds_xyz_mm": [
+    71.0,
+    62.98368138433378,
+    80.0
+  ],
+  "nip_centres_yz_mm": {
+    "drive": [
+      12.006607282578043,
+      -7.869578025861669
+    ],
+    "idler": [
+      9.993392717421957,
+      2.0175381924622244
+    ],
+    "liner": [
+      11.0,
+      -2.926019916699722
+    ]
+  },
+  "nominal_feed_diameter_mm": 10,
+  "nominal_gap_mm": 0.09,
+  "assumed_pitch_mm": 22,
+  "turns_per_assumed_label": 0.7002817496043395,
+  "rewind_no_slip_speed_ratio": 1.25,
+  "clutch": "Required slipping friction clutch. Both reels must NOT be rigidly speed-coupled.",
+  "no_label_sensor": "Possible open-loop after manual registration; motor turn control still needed for repeatability.",
+  "unverified": [
+    "effective rubber diameter and compression",
+    "traction and cumulative label registration error",
+    "web thickness and nip force",
+    "brake and clutch torque",
+    "belt selection and tracking",
+    "shaft locks, fits, fastening and bearing life",
+    "motor feedback / stepper choice",
+    "wrist interface, head mass and arm payload"
+  ],
+  "checks": [
+    {
+      "name": "SupplyRoll",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SupplyCore",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "SupplyFlanges",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "SupplyAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeArm",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeScrew",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakeKnob",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BrakePad",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedCore",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedRubber",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedShaft",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FeedCoupling",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchRoller",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchBlock",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PinchBlock001",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "N20Gearbox",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "N20Motor",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "N20Dshaft",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorNose",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "MotorTerminals",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "MotorBracket",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RewindCore",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RewindPaper",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RewindFlanges",
+      "valid": true,
+      "solids": 2
+    },
+    {
+      "name": "RewindShaft",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "Pulley",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "Pulley001",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ClutchPad",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ClutchHub",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ClutchAdjuster",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ClutchWasher",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RewindBelt",
+      "valid": true,
+      "solids": 66
+    },
+    {
+      "name": "PeelPlate",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ApplicationRoller",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "ApplicationAxle",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RearCheek",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "FrontCheek",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "RearBridge",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BottomBridge",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "WristAdapter",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "AdapterSpacer",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "IncomingLabels",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "StrippedLiner",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "PresentedLabel",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "BoxWall",
+      "valid": true,
+      "solids": 1
+    },
+    {
+      "name": "HeadTravel",
+      "valid": true,
+      "solids": 1
+    }
+  ],
+  "sources": [
+    "https://www.qlc-labeling.com/wp-content/uploads/2019/05/3115NV_Manual_QLC.pdf",
+    "https://www.pololu.com/product-info-merged/2369"
+  ]
+}

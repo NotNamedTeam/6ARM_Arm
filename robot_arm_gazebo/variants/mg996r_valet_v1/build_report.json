@@ -1,0 +1,199 @@
+{
+  "status": "CAD prototype checked, Gazebo cycle passed; PHYSICAL FIT AND STRENGTH NOT VERIFIED",
+  "axis_pitch_mm": 60.5125,
+  "case_angle_deg": 25.0,
+  "servo_envelope_clearance_mm": 5.723687563584071,
+  "fork_width_mm": 62.9,
+  "wrist_plate_thickness_mm": 3.0,
+  "original_fcstd_sha256": {
+    "robot_arm_gazebo/freecad/RobotArm_Assembly.FCStd": "cc67898f3fd52e2c2d3f0104b1e2aaa7f0175f3fe575a5d20467ce88f5e76dba",
+    "robot_arm_gazebo/freecad/parts/AXIS1_-_hornArm.FCStd": "5b3792203fc6f78ba0cb027357234f1b17168664ef36d20788aefc05e7d522db",
+    "robot_arm_gazebo/freecad/parts/AXIS1_-_pivotArm.FCStd": "6edf752fbdda6d1a9d7be5942d8fee4bd4471ecbba5afd142c36df0ccaf8f7d4",
+    "robot_arm_gazebo/freecad/parts/AXIS1_-_servoEnclosure_-_bottom.FCStd": "a33a755fb64aef55880674645a4a8a0d793b55851ed94a8389ba31790cfc2440",
+    "robot_arm_gazebo/freecad/parts/AXIS1_-_servoEnclosure_-_top.FCStd": "96653561c33a97e213e22028221ee6bd8f5fe96e2af0ab1afc66f7a8fab7dc58",
+    "robot_arm_gazebo/freecad/parts/AXIS2_-_servoEnclosure_-_bottom.FCStd": "983ac68b2873e2c8dcc63f68586f4747f46440388c9283fbd2e877fe4ab5d74e",
+    "robot_arm_gazebo/freecad/parts/AXIS2_-_servoEnclosure_-_top.FCStd": "a6b39935a6bb573be7b14e2f3f80aaed4a3e5190778135427de0e59b23aad61d",
+    "robot_arm_gazebo/freecad/parts/AXIS3_-_hornArm.FCStd": "b4866af7310efad435e1e1e38c110d23c34ff096ca19de4b6ef1368e2c3d3239",
+    "robot_arm_gazebo/freecad/parts/AXIS3_-_pivotArm.FCStd": "81bd52db175d9854fef36bf1279e5995258dbb10553f8b998a5fc3598427372a",
+    "robot_arm_gazebo/freecad/parts/BASE_-_base.FCStd": "15026fae2bfa4aaed971fa2625cbf3e2a0214a09e59d507a271ddad6dae1060b",
+    "robot_arm_gazebo/freecad/parts/BASE_-_platform.FCStd": "30c9fe80d3d4b4f4a59b5317579f409a1e06e7c2c6792527e760ed8767c5f1fb",
+    "robot_arm_gazebo/freecad/parts/BASE_-_servo_-_stand.FCStd": "016c3cdd0f9d53b0652bcbe6ae4018133d9c7f8b0209895cbab400b6146d03df",
+    "robot_arm_gazebo/freecad/parts/BASE_-_servo_-_stand_-_wire.FCStd": "101232808004e229c822ba39033c987baf1fbd981d6b56f243f949637874ae74",
+    "robot_arm_gazebo/freecad/parts/BASE_-_support.FCStd": "f4448d87c5d23d82c8bfab858196d140c1950765902b22f2e177043df82c7537",
+    "robot_arm_gazebo/freecad/parts/BASE_-_support_-_spacer.FCStd": "8d2c8667944989f55cdad827f2cad880597c0314df7572a17e761074d6dbfe0e",
+    "robot_arm_gazebo/freecad/parts/BASE_-_support_-_stand.FCStd": "5a3717c9063f9a0c6f3c51cdf8578a162e88cf2ab7dec0a5c5ef6ae002205443",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_gear_-_rack.FCStd": "c53cd96331d724675aa74e5d7bfd5339bca432a15ea49b57158d500bd0eb2590",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_gear_-_servo.FCStd": "e14437c80980817729a401d681bafac7c4d31b365c1f3fc7852125610633d3cf",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_jaw.FCStd": "a71774bf90bff7b5dcfe05d3d0134eaadce5335884fafbb8479252e8112047bc",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_plate_-_back.FCStd": "d6ef102519af42e0d37ba1c53b201b759844978a74b8f4f284ed1480234d8fe1",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_plate_-_front.FCStd": "df044542ce0c857e09f96995960070cc8c239bfd1c1173399df55f0e39ad5c25",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_servoEnclosure_-_bottom.FCStd": "23a72f5c31b62d1f09e79a7b58d8a5421acf75a7d7dcd4a5bc39833464d9094b",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_servoEnclosure_-_top.FCStd": "5195732f4174a447b57a831b92615f544b073cdd7db48b7e9c85d937d367625b",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_spacer_-_jaw.FCStd": "e5beab042719caa1126accd8655bbbb719d09bc4fea4c82c3428517f38c0c86c",
+    "robot_arm_gazebo/freecad/parts/GRIPPER_-_wristHornAttachment.FCStd": "30a5bf8f284a38712c0ecf38051e7cbed749fed991a33c8e3717c1cca382f7fe",
+    "robot_arm_gazebo/freecad/parts/WRIST_-_base.FCStd": "2932764f2f523e62975e27d518f9259fe3545373bb03a4c4760caf6dbf1048c6",
+    "robot_arm_gazebo/freecad/parts/WRIST_-_servoEnclosure_-_bottom.FCStd": "2be303ce0aa1a83ef659f31a0de1f92922259408cbe1675ad36b083242db2f71",
+    "robot_arm_gazebo/freecad/parts/WRIST_-_servoEnclosure_-_top.FCStd": "d553c55716f15a9ede3b043365dd56f9805ed94cf2156d3a6c991db345f67b15"
+  },
+  "parts": [
+    {
+      "stem": "AXIS2_-_servoEnclosure_-_bottom",
+      "label": "Обойма MG996R задняя",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 59149.51670235306
+    },
+    {
+      "stem": "AXIS2_-_servoEnclosure_-_top",
+      "label": "Обойма MG996R передняя",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 59192.94459049548
+    },
+    {
+      "stem": "AXIS3_-_hornArm",
+      "label": "Щека MG996R под штатную качалку",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 9923.182754820013
+    },
+    {
+      "stem": "AXIS3_-_pivotArm",
+      "label": "Щека опорная под втулку 6×3,2×8",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 11386.706795723154
+    },
+    {
+      "stem": "WRIST_-_base",
+      "label": "Плита кисти расширенная 62,9×40×3",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 7374.81970497086
+    },
+    {
+      "stem": "MG996R_reference",
+      "label": "MG996R - габаритная модель, НЕ ПЕЧАТАТЬ",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 30539.62765914043
+    },
+    {
+      "stem": "FIT_body_frame",
+      "label": "Пробник корпуса MG996R 41,3×20,3",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 2884.2899999999995
+    },
+    {
+      "stem": "FIT_horn_pattern",
+      "label": "Пробник посадки штатной качалки",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 4546.746081883779
+    },
+    {
+      "stem": "FIT_bushing_6_0_6_2_6_4",
+      "label": "Пробник втулки: отверстия 6,0 / 6,2 / 6,4",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 3154.8728376355734
+    }
+  ],
+  "closure_bolts_xy_mm": [
+    [
+      -67.6930069025758,
+      -8.74971187320629
+    ],
+    [
+      -56.10875428818037,
+      -5.235818704591788
+    ],
+    [
+      -30.88412283995618,
+      27.471532751469066
+    ],
+    [
+      -17.294478123861566,
+      25.731429108139316
+    ]
+  ],
+  "unverified": [
+    "actual MG996R flange dimensions",
+    "factory horn fit",
+    "printed tolerances",
+    "insert and sleeve bearing installation",
+    "strength and payload"
+  ],
+  "servo_reference_nominal_mm": [
+    40.7,
+    19.7,
+    42.9
+  ],
+  "servo_reference_assumptions": "Body height 36.6 mm; flange 54x20x2.6 and shaft details are provisional; verify on owned units",
+  "replacement_parts": [
+    "AXIS2_-_servoEnclosure_-_bottom",
+    "AXIS2_-_servoEnclosure_-_top",
+    "AXIS3_-_hornArm",
+    "AXIS3_-_pivotArm",
+    "WRIST_-_base"
+  ],
+  "fit_coupons": [
+    "FIT_body_frame",
+    "FIT_horn_pattern",
+    "FIT_bushing_6_0_6_2_6_4"
+  ],
+  "hardware_changes": [
+    "2x MG996R 55 g within forearm",
+    "4x M3 closure bolts and nuts, length to measure",
+    "1x sleeve OD6 ID3.2 length8 mm, M3 pivot bolt, short M3 insert length 3 mm; fit to measure"
+  ],
+  "hardware_connection": "none",
+  "checked_at": "2026-10-21T22:01:51.728031+00:00",
+  "cad_assembly_sha256": "bced4858f815487ef82f04ff4f275e1b735c34a08fd090490ecb6a5ba125d802",
+  "sdf_sha256": "abf15cf53d354bcb37af028379f91bd1ae8362845db5192e0df2f5bdbd9ed12c",
+  "servo_axes": {
+    "axes": [
+      {
+        "name": "MG996R_Envelope_1",
+        "origin_mm": [
+          20.400000000000002,
+          3.019806626980426e-14,
+          149.6825
+        ],
+        "outward": [
+          1.0000000000000002,
+          5.551115123125783e-17,
+          -1.5959455978986625e-16
+        ]
+      },
+      {
+        "name": "MG996R_Envelope_2",
+        "origin_mm": [
+          -20.399999999999984,
+          4.263256414560601e-14,
+          210.19500000000002
+        ],
+        "outward": [
+          -1.0000000000000002,
+          -5.551115123125783e-17,
+          1.734723475976807e-16
+        ]
+      }
+    ],
+    "opposed_direction_dot": -1.0000000000000004,
+    "perpendicular_spacing_mm": 60.512500000000024
+  },
+  "checks": {
+    "cad_discrete_positions": 13,
+    "wrist_pitch_range_checked_deg": [
+      -30,
+      30
+    ],
+    "print_stl_closed_solids": 8,
+    "gazebo_cycle": "passed",
+    "gazebo_motion_phases": 17,
+    "original_fcstd_unchanged": true
+  },
+  "physical_status": "Not approved for full-size printing until fit coupons and hardware measurements are checked"
+}

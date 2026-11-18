@@ -1,0 +1,305 @@
+"""Visible layout concept: user-dimensioned 3V SM300, geared nip, no belt.
+Not a flexible-web simulation, manufacturing drawing or physical robot command.
+"""
+from pathlib import Path
+import json
+import math
+import FreeCAD as App
+import FreeCADGui as Gui
+import Part
+from PySide import QtCore
+
+
+def build_label_applicator_v5():
+    dest = Path(__file__).resolve().parent
+    V = App.Vector
+    doc = App.newDocument('LabelApplicator_v5_SM300')
+    doc.Label = 'Лепилка v5 — SM300 3 В, Ø25 × 13, вал 9 мм'
+    Gui.activateWorkbench('PartWorkbench')
+    view = Gui.activeDocument().activeView()
+    groups, shapes = {}, []
+    blue, steel = (0.25,0.47,0.70), (0.64,0.68,0.72)
+    orange, rubber = (0.95,0.43,0.12), (0.12,0.17,0.20)
+    for name,label in [('Supply','01 Подающая катушка и винтовой тормоз'),
+                       ('Nip','02 ПРОТЯЖНАЯ ПАРА — после отделения этикетки'),
+                       ('Gears','03 Шестерни между протяжными роликами — 1:1'),
+                       ('Drive','04 SM300 3 В — по размерам пользователя'),
+                       ('Frame','05 Корпус — передняя боковина скрыта'),
+                       ('Web','06 Путь ленты'),('Reference','07 Коробка — справочно')]:
+        g = doc.addObject('App::DocumentObjectGroup',name)
+        g.Label = label
+        groups[name] = g
+
+    def add(name,label,shape,color,parent,transparency=0):
+        obj = doc.addObject('Part::Feature',name)
+        obj.Label, obj.Shape = label, shape
+        obj.ViewObject.ShapeColor = color
+        obj.ViewObject.LineColor = (0.15,0.17,0.19)
+        obj.ViewObject.DisplayMode = 'Flat Lines'
+        obj.ViewObject.Transparency = transparency
+        groups[parent].addObject(obj)
+        shapes.append(obj)
+        doc.recompute()
+        view.viewAxonometric(); view.fitAll(); Gui.updateGui()
+        print(label,flush=True)
+        return obj
+
+    def cyl(r,l,y,z,x=None):
+        return Part.makeCylinder(r,l,V(-l/2 if x is None else x,y,z),V(1,0,0))
+
+    def ring(ro,ri,l,y,z,x):
+        return cyl(ro,l,y,z,x).cut(cyl(ri,l+0.2,y,z,x-0.1))
+
+    def ribbon(points,t=0.09,w=20):
+        up = [V(-w/2,y,z+t/2) for y,z in points]
+        down = [V(-w/2,y,z-t/2) for y,z in reversed(points)]
+        return Part.Face(Part.makePolygon(up+down+[up[0]])).extrude(V(w,0,0))
+
+    def beam(a,b,r=0.8):
+        return Part.makeCylinder(r,(b-a).Length,a,b-a)
+
+    def gear(teeth,y,z,x,bore=1.6,phase=0,width=3,module=0.5):
+        # Sampled 20-degree involute. No root fillet or manufacturing allowance.
+        rp=module*teeth/2; rb=rp*math.cos(math.radians(20))
+        rf=rp-1.25*module; ra=rp+module
+        def inv(r):
+            t=math.sqrt(max(0,(r/rb)**2-1)); return t-math.atan(t)
+        halfbase=math.pi/(2*teeth)+inv(rp)
+        def half(r): return halfbase-inv(max(r,rb))
+        def point(r,a): return V(x,y+r*math.cos(a),z+r*math.sin(a))
+        points=[]
+        for j in range(teeth):
+            a=phase+2*math.pi*j/teeth
+            points.append(point(rf,a-halfbase))
+            for i in range(9):
+                r=rb+(ra-rb)*i/8; points.append(point(r,a-half(r)))
+            for i in range(1,5): points.append(point(ra,a-half(ra)+2*half(ra)*i/4))
+            for i in range(1,9):
+                r=ra-(ra-rb)*i/8; points.append(point(r,a+half(r)))
+            points.append(point(rf,a+halfbase))
+            for i in range(1,4):
+                end=2*math.pi/teeth-2*halfbase
+                points.append(point(rf,a+halfbase+end*i/4))
+        solid=Part.Face(Part.makePolygon(points+[points[0]])).extrude(V(width,0,0))
+        return solid.cut(cyl(bore,width+0.2,y,z,x-0.1))
+
+    # Return run is tangent to the currently represented R10 rewind roll.
+    # A different winding radius changes the run AFTER the nip, not metering diameter.
+    py,pz,cy,cz = 32.0,1.35,-8.0,-17.0
+    vy,vz = py-cy,pz-cz
+    d2 = vy*vy+vz*vz
+    k, h = 100/d2, 10*math.sqrt(d2-100)/d2
+    ty,tz = cy+k*vy-h*vz,cz+k*vz+h*vy
+    ny = 6.0
+    nz = pz+(ny-py)*(tz-pz)/(ty-py)
+    length = math.hypot(ty-py,tz-pz)
+    dy,dz = (ty-py)/length,(tz-pz)/length
+    normal_y,normal_z = -dz,dy
+    fy,fz = ny+5.045*normal_y,nz+5.045*normal_z
+    iy,iz = ny-5.045*normal_y,nz-5.045*normal_z
+
+    params = doc.addObject('App::FeaturePython','ConceptParameters')
+    params.Label = 'Справочные параметры — не управляющие размеры'
+    for name,value in [('WebWidth',20),('FeedRollerDiameter',10),('NipGap',0.09),
+                       ('AssumedLabelPitch',22),('SupplyDiameter',30),('RewindDiameter',20)]:
+        params.addProperty('App::PropertyLength',name,'Layout'); setattr(params,name,value)
+    params.addProperty('App::PropertyString','FeedRule','Layout')
+    params.FeedRule = 'L = pi * Dэфф * n; для шага 22 мм и Dэфф=10 мм: 0.7003 оборота. Реальный шаг неизвестен.'
+    params.addProperty('App::PropertyString','Status','Layout')
+    params.Status = 'Макет для теста прямого привода SM300. Обороты и момент неизвестны; необходимость редуктора определяется испытанием.'
+    for name,value in [('MotorDiameter',25),('MotorBodyLength',13),('MotorShaftProjection',9),('MotorShaftDiameterAssumed',2)]:
+        params.addProperty('App::PropertyLength',name,'Motor');setattr(params,name,value)
+    params.addProperty('App::PropertyString','MotorData','Motor')
+    params.MotorData = '3 В; Ø25 × 13 мм; выступ вала 9 мм; общий осевой габарит 22 мм — данные пользователя. Ø вала 2 мм — допущение.'
+    params.addProperty('App::PropertyString','ElectricalPlan','Motor')
+    params.ElectricalPlan = 'Отдельное питание мотора 3 В → низковольтный драйвер → мотор. ESP32: сигналы 3,3 В, общий GND. Не питать от GPIO.'
+
+    # Supply roll: static shaft, rotating spool, pad on outside spool flange.
+    add('SupplyRoll','Подача — условный рулон Ø30 × 20',ring(15,5,20,-8,28,-10),(0.91,0.86,0.66),'Supply')
+    add('SupplyCore','Втулка подачи на неподвижной оси',ring(5,1.65,22,-8,28,-11),blue,'Supply')
+    add('SupplyFlanges','Боковые диски подачи — тормозим левый',
+        ring(16,1.65,1,-8,28,-11.2).fuse(ring(16,1.65,1,-8,28,10.2)),blue,'Supply')
+    add('SupplyAxle','Неподвижная ось подачи Ø3',cyl(1.5,34,-8,28),steel,'Supply')
+    brake_arm = Part.makeBox(3,8,10,V(-16,-12,28))
+    brake_arm = brake_arm.cut(cyl(1.3,5,-8,35,-17))
+    add('BrakeArm','Неподвижный кронштейн резьбового тормоза',brake_arm,blue,'Supply')
+    add('BrakeScrew','Винт M3: приближает накладку к диску, резьба условно',
+        cyl(1.5,9.2,-8,35,-21),steel,'Supply')
+    add('BrakeKnob','Ручка тормоза: сильнее затянули — больше сопротивление',
+        cyl(3,3,-8,35,-24),orange,'Supply')
+    add('BrakePad','Тормозная накладка — касается левого диска катушки',
+        cyl(2.2,0.6,-8,35,-11.8),(0.64,0.29,0.22),'Supply')
+
+    # The nip is on the stripped liner, NOT on the incoming adhesive labels.
+    add('FeedCore','Ведущий протяжной ролик — жёсткая сердцевина',
+        ring(3.5,1.6,22,fy,fz,-11),blue,'Nip')
+    add('FeedRubber','Ведущий ролик — резиновая поверхность, Ø10 × 22',
+        ring(5,3.5,22,fy,fz,-11),rubber,'Nip')
+    add('FeedShaft','Вал ведущего ролика Ø3 — шестерня и соединительная муфта',
+        cyl(1.5,40.5,fy,fz,-21),steel,'Nip')
+    add('PinchRoller','Второй ролик с другой стороны подложки — свободный Ø10',
+        ring(5,1.65,22,iy,iz,-11),(0.30,0.36,0.42),'Nip')
+    add('PinchAxle','Ось прижимного ролика — перестановка в коротких пазах',
+        cyl(1.5,36,iy,iz),steel,'Nip')
+    for x in (-16.5,14.0):
+        add('PinchBlock','Регулируемый блок оси — фиксация M3, прижим подобрать',
+            Part.makeBox(2.5,7,7,V(x,iy-3.5,iz-3.5)).cut(cyl(1.55,3,iy,iz,x-0.25)),
+            orange,'Nip')
+
+    # Both nip rollers are driven at equal surface speed, in opposite directions.
+    mesh_angle=math.atan2(iz-fz,iy-fy)
+    add('FeedGear','Шестерня ведущего ролика — 20 зубьев, m0,5',
+        gear(20,fy,fz,-19,phase=mesh_angle),(0.87,0.72,0.26),'Gears')
+    add('PinchGear','Шестерня второго ролика — 20 зубьев, встречное вращение',
+        gear(20,iy,iz,-19,phase=mesh_angle+math.pi+math.pi/20),(0.94,0.84,0.44),'Gears')
+    # Motor dimensions from the human user, not inferred from a similarly named motor.
+    # Axial chain: roller shaft ends at x19.5; motor shaft x19.5..28.5;
+    # motor body x28.5..41.5. The shafts butt, rather than overlap.
+    add('SM300Body','SM300 3 В — корпус Ø25 × 13 мм, размеры пользователя',
+        cyl(12.5,13,fy,fz,28.5),steel,'Drive')
+    add('SM300Shaft','Выступ вала 9 мм; Ø2 мм ПОКА УСЛОВНО',
+        cyl(1,9,fy,fz,19.5),(0.77,0.79,0.82),'Drive')
+    coupling=cyl(3.5,8,fy,fz,16.5)
+    coupling=coupling.cut(cyl(1.6,3.1,fy,fz,16.4)).cut(cyl(1.1,5.2,fy,fz,19.4))
+    add('MotorCoupling','Соединительная муфта Ø3 → условный Ø2; фиксацию валов уточнить',
+        coupling,orange,'Drive')
+    terminals=Part.makeBox(2,0.5,1,V(41.5,fy-3.5,fz-0.5)).fuse(
+        Part.makeBox(2,0.5,1,V(41.5,fy+3,fz-0.5)))
+    add('MotorTerminals','Контакты — положение условно, оставить место под пайку',terminals,(0.77,0.48,0.20),'Drive')
+    for xx in (30,37):
+        collar=ring(14.5,12.65,3,fy,fz,xx)
+        low=collar.common(Part.makeBox(4,31,15,V(xx-0.5,fy-15.5,fz-15)))
+        cap=collar.common(Part.makeBox(4,31,15,V(xx-0.5,fy-15.5,fz)))
+        for yy in (fy-17,fy+12):
+            low=low.fuse(Part.makeBox(3,5,2,V(xx,yy,fz-2)))
+            cap=cap.fuse(Part.makeBox(3,5,2,V(xx,yy,fz)))
+        for yy in (fy-14.5,fy+14.5):
+            hole=Part.makeCylinder(1.1,5,V(xx+1.5,yy,fz-2.5),V(0,0,1))
+            low=low.cut(hole);cap=cap.cut(hole)
+        add('MotorSaddle','Нижняя половина хомута — посадка Ø25,3 условно',low,blue,'Frame')
+        add('MotorClamp','Съёмная крышка хомута — 2 винта M2 условно',cap,blue,'Frame')
+    add('MotorBase','Основание хомутов — крепёж и жёсткость уточнить',
+        Part.makeBox(30,34,3.5,V(15,fy-17,fz-17.5)),blue,'Frame')
+    add('MotorSupport','Связь основания мотора с боковиной',
+        Part.makeBox(3,22,6,V(15,fy-11,fz-16)),blue,'Frame')
+
+    # Peel and application roller remain at the nose.
+    p=[V(-11,y,z) for y,z in [(23,1),(31.8,1.4),(32,2),(23,3.2),(23,1)]]
+    add('PeelPlate','Отделяющая гладкая кромка — не режущий нож',Part.Face(Part.makePolygon(p)).extrude(V(22,0,0)),orange,'Web')
+    add('ApplicationRoller','Мягкий ролик прижима этикетки к коробке — свободный Ø14',ring(7,1.65,22,32,15,-11),rubber,'Web')
+    add('ApplicationAxle','Ось прижима этикетки к коробке',cyl(1.5,30,32,15),steel,'Web')
+
+    profile=[(-23,-22),(20,-22),(36,-5),(36,23),(11,45),(-23,45)]
+    def cheek(x):
+        p=[V(x,y,z) for y,z in profile]; p.append(p[0])
+        sh=Part.Face(Part.makePolygon(p)).extrude(V(2.4,0,0))
+        for y,z,wy,hz in [(-19,13,32,28),(-19,-20,34,15),(0,-1,23,11)]:
+            sh=sh.cut(Part.makeBox(5,wy,hz,V(x-1,y,z)))
+        for y,z,r in [(-8,28,4.5),(fy,fz,4.5),(iy,iz,4.5)]:
+            sh=sh.fuse(cyl(r,2.4,y,z,x))
+            sh=sh.fuse(Part.makeBox(2.4,y+23,3,V(x,-23,z-1.5)))
+        if x<0: sh=sh.fuse(Part.makeBox(2.4,4,10,V(x,-10,28)))
+        for y,z in [(-8,28),(fy,fz),(32,15)]:
+            sh=sh.cut(cyl(1.65,5,y,z,x-1))
+        # Short normal-direction slot for adjusting the passive nip roller.
+        a=V(x-1,iy-normal_y,iz-normal_z); b=V(x-1,iy+normal_y,iz+normal_z)
+        slot=cyl(1.65,5,a.y,a.z,a.x).fuse(cyl(1.65,5,b.y,b.z,b.x))
+        pts=[V(x-1,a.y+1.65*dy,a.z+1.65*dz),V(x-1,b.y+1.65*dy,b.z+1.65*dz),
+             V(x-1,b.y-1.65*dy,b.z-1.65*dz),V(x-1,a.y-1.65*dy,a.z-1.65*dz)]
+        slot=slot.fuse(Part.Face(Part.makePolygon(pts+[pts[0]])).extrude(V(5,0,0)))
+        sh=sh.cut(slot)
+        if x<0: sh=sh.cut(cyl(1.7,5,-8,35,x-1))
+        return sh.removeSplitter()
+    rear=add('RearCheek','Задняя боковина — рулон и протяжная пара',cheek(-15),blue,'Frame',65)
+    front=add('FrontCheek','Передняя боковина — скрыта для обзора',cheek(12.6),blue,'Frame',85)
+    front.Visibility=False
+    rear_bridge=Part.makeBox(25.2,3,50,V(-12.6,-23,-18))
+    rear_bridge=rear_bridge.cut(Part.makeBox(21.6,5,7,V(-10.8,-24,-13)))
+    add('RearBridge','Задняя перемычка с окном выхода подложки',rear_bridge,blue,'Frame')
+    add('BottomBridge','Нижняя перемычка — катушка сбора убрана',Part.makeBox(25.2,18,2.4,V(-12.6,-20,-23)),blue,'Frame')
+    mount=Part.makeBox(28,24,3,V(-14,-24,-27))
+    for x in (-7,7): mount=mount.cut(Part.makeCylinder(1.65,5,V(x,-12,-28),V(0,0,1)))
+    add('WristAdapter','Условное крепление к кисти — уточнить посадку',mount,(0.38,0.43,0.49),'Frame')
+    add('AdapterSpacer','Связь переходника с корпусом',Part.makeBox(25.2,12,1,V(-12.6,-20,-24)),blue,'Frame')
+    add('IncomingLabels','Лента с этикетками: рулон → острая кромка',ribbon([(-11.29,13.37),(32,2)],0.14),(0.91,0.79,0.38),'Web')
+    exit_z=pz+(-25-py)*(tz-pz)/(ty-py)
+    add('StrippedLiner','Голая подложка: кромка → МЕЖДУ роликами → окно выхода',
+        ribbon([(py,pz),(ny,nz),(-25,exit_z)]),(0.30,0.79,0.81),'Web')
+    add('FreeWasteTail','Свободный хвост подложки — НЕ намотка, собрать у основания',
+        ribbon([(-25,exit_z),(-31,-15),(-32,-29)]),(0.30,0.79,0.81),'Reference')
+    add('PresentedLabel','Этикетка выступает к коробке примерно на 7 мм',ribbon([(32,2.2),(38.7,0.3)],0.18),orange,'Web')
+    add('BoxWall','Коробка — вертикальная стенка, справочно',Part.makeBox(46,3,82,V(-23,39,-34)),(0.69,0.53,0.33),'Reference',80)
+    arrow=Part.makeCylinder(0.8,17,V(20,35,37),V(0,0,-1)).fuse(Part.makeCone(2.6,0,5,V(20,35,20),V(0,0,-1)))
+    add('HeadTravel','Головка проходит ВНИЗ, прижимая этикетку',arrow,(0.87,0.15,0.16),'Reference')
+
+    doc.recompute()
+    bounds=Part.makeCompound([o.Shape for o in shapes if o not in groups['Reference'].Group]).BoundBox
+    checks=[{'name':o.Name,'valid':o.Shape.isValid(),'solids':len(o.Shape.Solids)} for o in shapes]
+    report={'status':'LAYOUT ONLY — not print ready, not a dynamics validation',
+            'head_bounds_xyz_mm':[bounds.XLength,bounds.YLength,bounds.ZLength],
+            'nip_centres_yz_mm':{'drive':[fy,fz],'idler':[iy,iz],'liner':[ny,nz]},
+            'nominal_feed_diameter_mm':10,'nominal_gap_mm':0.09,
+            'assumed_pitch_mm':22,'turns_per_assumed_label':22/(10*math.pi),
+            'motor':{'name_from_user':'SM300','voltage_V':3,
+                     'body_diameter_mm':25,'body_length_mm':13,'shaft_projection_mm':9,
+                     'overall_axial_mm':22,'dimensions_source':'Human user',
+                     'shaft_diameter_assumed_mm':2,'rpm':None,'torque':None,'stall_current':None},
+            'motor_to_roller_ratio':1,'drive_status':'Direct-coupled test layout; no claim that low-speed torque is adequate',
+            'roller_gears_teeth':[20,20], 'gear_module_mm':0.5,
+            'gear_note':'Sampled involutes; no root fillets, manufacturing tolerances or strength validation',
+            'freewheels':'Removed; not required for continuous-rotation DC drive',
+            'waste':'No take-up reel in this variant. Free exit; prior version retained separately.',
+            'no_label_sensor':'Timed PWM test only; repeatable length requires rotation feedback or other registration.',
+            'unverified':['effective rubber diameter and compression','traction and cumulative label registration error',
+                          'web thickness and nip force','brake torque and passive axial support',
+                          'motor shaft diameter, terminals and mounting details',
+                          'gear phasing, backlash and printable tooth size','SM300 low-speed torque, RPM and current',
+                          'shaft locks, fits, fastening and bearing life','free waste snagging on moving arm',
+                          'wrist interface, head mass and arm payload'],
+            'checks':checks,
+            'electrical':{'driver_candidate':'DRV8833, voltage compatibility only; module/current validation pending',
+                          'motor_supply_V':3,'controller':'ESP32 3.3V logic, common GND; not motor power',
+                          'warning':'Driver is not a step-down voltage regulator. Never connect motor to servo 6V rail directly.'},
+            'sources':['Human user: motor nominal voltage and envelope',
+                       'https://www.ti.com/product/DRV8833']}
+    (dest/'concept_report_v5.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+    doc.saveAs(str(dest/'LabelApplicator_v5_SM300.FCStd'))
+
+    def side():
+        view.viewRight();view.fitAll();Gui.updateGui();QtCore.QTimer.singleShot(1000,save_side)
+    def save_side():
+        view.saveImage(str(dest/'side_preview_v5.png'),1500,1100,'White')
+        view.viewAxonometric();view.fitAll();Gui.updateGui();QtCore.QTimer.singleShot(1000,finish)
+    def finish():
+        view.saveImage(str(dest/'assembly_preview_v5.png'),1500,1100,'White')
+        doc.save()
+        print('ГОТОВО v5:',doc.FileName,'габарит',report['head_bounds_xyz_mm'],flush=True)
+        # A persistent, narrowly scoped control file for later VIEW changes.
+        # It permits no code execution or hardware control.
+        last_command=[None]
+        def review_control():
+            command_file=dest/'review_control_v5.json'
+            if not command_file.exists(): return
+            try:
+                command=json.loads(command_file.read_text(encoding='utf-8'))
+                if command.get('sequence')==last_command[0]: return
+                last_command[0]=command.get('sequence')
+                if command.get('view')=='gears':
+                    for o in shapes: o.Visibility=o in groups['Gears'].Group or o in groups['Drive'].Group or o in groups['Nip'].Group
+                    view.viewAxonometric()
+                    view.setCameraOrientation(App.Rotation(V(0,0,1),180).multiply(view.getCameraOrientation()).Q)
+                    view.fitAll();Gui.updateGui()
+                    QtCore.QTimer.singleShot(800,lambda:view.saveImage(str(dest/'gear_detail_v5.png'),1500,1100,'White'))
+                elif command.get('view')=='assembly':
+                    for o in shapes: o.Visibility=True
+                    front.Visibility=False
+                    view.viewAxonometric();view.fitAll();Gui.updateGui()
+                elif command.get('view')=='close_saved':
+                    doc.save();App.closeDocument(doc.Name);Gui.getMainWindow().close()
+            except Exception as e: App.Console.PrintError(str(e)+'\n')
+        timer=QtCore.QTimer(Gui.getMainWindow());timer.timeout.connect(review_control);timer.start(500)
+        globals().setdefault('_LABEL_APP_V5_TIMERS',[]).append(timer)
+    QtCore.QTimer.singleShot(1000,side)
+
+
+build_label_applicator_v5()

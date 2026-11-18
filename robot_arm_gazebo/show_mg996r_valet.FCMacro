@@ -1,0 +1,58 @@
+"""One FreeCAD window: preserve the original and show the separate prototype."""
+import FreeCAD as App
+import FreeCADGui as Gui
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent
+DEST=ROOT/'variants/mg996r_valet_v1'
+assembly=App.openDocument(str(DEST/'freecad/RobotArm_Assembly.FCStd'))
+# A self-contained review document avoids graphics issues in partially loaded
+# external-link documents and does not open 28 separate part views.
+doc=App.newDocument('MG996R_Layout_Review')
+doc.Label='MG996R валетом - обзор компоновки'
+groups={}
+for source in assembly.Objects:
+    if source.TypeId!='App::Link':continue
+    parent=source.getParentGeoFeatureGroup()
+    group_name=parent.Name
+    placement=App.Placement()
+    while parent is not None:
+        placement=parent.Placement.multiply(placement)
+        parent=parent.getParentGeoFeatureGroup()
+    if group_name not in groups:
+        groups[group_name]=doc.addObject('App::DocumentObjectGroup',group_name)
+    obj=doc.addObject('Part::Feature',source.Name)
+    obj.Label=source.Label
+    obj.Shape=source.Shape.copy()
+    obj.Placement=placement.multiply(obj.Placement)
+    obj.addProperty('App::PropertyString','SourceSTL');obj.SourceSTL=source.SourceSTL
+    obj.addProperty('App::PropertyString','SourceAssembly');obj.SourceAssembly=assembly.FileName
+    groups[group_name].addObject(obj)
+    obj.ViewObject.Visibility=True
+    obj.ViewObject.DisplayMode='Flat Lines'
+    obj.ViewObject.LineWidth=1
+    if obj.SourceSTL.startswith('MG996R'):
+        obj.ViewObject.ShapeColor=(.10,.12,.15)
+    elif obj.SourceSTL.startswith(('AXIS2','AXIS3','WRIST_-_base')):
+        obj.ViewObject.ShapeColor=(.94,.54,.15)
+    else:
+        obj.ViewObject.ShapeColor=(.78,.82,.86)
+for other in list(App.listDocuments().values()):
+    if other.Name!=doc.Name:App.closeDocument(other.Name)
+App.setActiveDocument(doc.Name)
+doc.recompute()
+view=Gui.activeDocument().activeView()
+view.viewAxonometric();view.fitAll();Gui.updateGui()
+view.saveImage(str(DEST/'assembly_preview.png'),1500,1100,'White')
+for name,group in groups.items():
+    if name not in ('forearm','wrist_pitch'):
+        for obj in group.Group:obj.Visibility=False
+for obj in doc.Objects:
+    if hasattr(obj,'SourceSTL') and obj.SourceSTL.startswith('AXIS2'):
+        obj.ViewObject.Transparency=80
+view.fitAll();Gui.updateGui()
+view.saveImage(str(DEST/'opposed_servos_preview.png'),1500,1100,'White')
+view.viewAxonometric();view.fitAll();Gui.updateGui()
+doc.recompute();doc.saveAs(str(DEST/'freecad/MG996R_Layout_Review.FCStd'))
+Gui.activateWorkbench('PartWorkbench')
+App.Console.PrintMessage('\nMG996R: отдельный прототип валетом. Межосевое 60,5125 мм.\n')
+App.Console.PrintMessage('Физические размеры креплений и прочность ещё не проверены.\n')

@@ -1,0 +1,138 @@
+{
+  "source_fcstd": "robot_arm_gazebo/variants/labeler_mg996r_n20_v1/freecad/RobotArm_Assembly.FCStd",
+  "joints": [
+    {
+      "name": "base_yaw_joint",
+      "parent": "base",
+      "child": "turntable",
+      "z": 47.2,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "gpio": 16,
+      "home": 0,
+      "servo_max": 270,
+      "speed": 0.65,
+      "effort": 1.5,
+      "control_mode": "force_pid"
+    },
+    {
+      "name": "shoulder_joint",
+      "parent": "turntable",
+      "child": "upper_arm",
+      "z": 89.6825,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "gpio": 17,
+      "home": 82,
+      "servo_max": 180,
+      "speed": 0.45,
+      "effort": 1.2
+    },
+    {
+      "name": "elbow_joint",
+      "parent": "upper_arm",
+      "child": "forearm",
+      "z": 149.6825,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "gpio": 5,
+      "home": 75,
+      "servo_max": 180,
+      "speed": 0.5,
+      "effort": 1.2
+    },
+    {
+      "name": "wrist_pitch_joint",
+      "parent": "forearm",
+      "child": "wrist_pitch",
+      "z": 210.195,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "gpio": 18,
+      "home": 90,
+      "servo_max": 159,
+      "speed": 0.45,
+      "effort": 0.65,
+      "lower": -0.4363323129985824,
+      "upper": 0.4363323129985824,
+      "servo_direction_sign": -1
+    },
+    {
+      "name": "wrist_roll_joint",
+      "parent": "wrist_pitch",
+      "child": "applicator",
+      "z": 287.045,
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "gpio": 19,
+      "home": 90,
+      "servo_max": 180,
+      "speed": 0.5,
+      "effort": 0.5,
+      "continuous": false,
+      "lower": -1.0471975511965976,
+      "upper": 1.0471975511965976,
+      "origin_xyz_mm": [
+        10,
+        0,
+        287.045
+      ]
+    },
+    {
+      "name": "feed_joint",
+      "parent": "applicator",
+      "child": "feed_roller",
+      "origin_xyz_mm": [
+        10,
+        7.006607282578043,
+        309.1573219939717
+      ],
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "continuous": true,
+      "effort": 0.03,
+      "speed": 10.5
+    },
+    {
+      "name": "pinch_joint",
+      "parent": "applicator",
+      "child": "pinch_roller",
+      "origin_xyz_mm": [
+        10,
+        4.993392717421957,
+        319.04443821229563
+      ],
+      "axis": [
+        -1,
+        0,
+        0
+      ],
+      "continuous": true,
+      "effort": 0.03,
+      "speed": 10.5
+    }
+  ],
+  "pinion_radius_m": 0.0085,
+  "finger_travel_m": 0.017,
+  "effective_print_density_kg_m3": 600,
+  "status": "approximate; mechanical stops, masses and servo directions not calibrated",
+  "hardware_connection": "none; Gazebo Transport only"
+}

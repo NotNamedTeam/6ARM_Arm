@@ -1,0 +1,178 @@
+"""Visible FreeCAD concept build. No connection to ESP32 or physical servos."""
+from pathlib import Path
+import json
+import math
+import FreeCAD as App
+import FreeCADGui as Gui
+import Part
+
+DEST = Path(__file__).resolve().parent
+DEST.mkdir(parents=True, exist_ok=True)
+V = App.Vector
+doc = App.newDocument('LabelApplicator_v1')
+doc.Label = 'Лепилка v1 — компоновочный макет, лента 20 мм'
+Gui.activateWorkbench('PartWorkbench')
+view = Gui.activeDocument().activeView()
+groups = {}
+objects = []
+
+
+def group(name, label):
+    obj = doc.addObject('App::DocumentObjectGroup', name)
+    obj.Label = label
+    groups[name] = obj
+    return obj
+
+
+def part(name, label, shape, color, parent='Mechanism', transparency=0):
+    obj = doc.addObject('Part::Feature', name)
+    obj.Label = label
+    obj.Shape = shape
+    obj.ViewObject.ShapeColor = color
+    obj.ViewObject.LineColor = (0.16, 0.18, 0.20)
+    obj.ViewObject.DisplayMode = 'Flat Lines'
+    obj.ViewObject.LineWidth = 1.0
+    obj.ViewObject.Transparency = transparency
+    groups[parent].addObject(obj)
+    objects.append(obj)
+    doc.recompute()
+    view.viewAxonometric()
+    view.fitAll()
+    Gui.updateGui()
+    App.Console.PrintMessage(label + '\n')
+    print(label, flush=True)
+    return obj
+
+
+def cyl(radius, width, y, z, x=None):
+    return Part.makeCylinder(radius, width, V(-width/2 if x is None else x, y, z), V(1, 0, 0))
+
+
+def ribbon(points, width=20, thickness=0.14):
+    # Thin web solid, constructed in the YZ plane and extruded across X.
+    upper = [V(-width/2, y, z+thickness/2) for y, z in points]
+    lower = [V(-width/2, y, z-thickness/2) for y, z in reversed(points)]
+    wire = Part.makePolygon(upper + lower + [upper[0]])
+    return Part.Face(wire).extrude(V(width, 0, 0))
+
+
+group('Mechanism', '01 Механизм — ролики и катушки')
+group('Frame', '02 Корпус и условное крепление')
+group('Web', '03 Путь ленты и выступающая этикетка')
+group('Reference', '04 Коробка и направление движения')
+params = doc.addObject('App::FeaturePython', 'ConceptParameters')
+params.Label = 'Параметры и ограничения макета'
+for name, value in [('WebWidth',20.0), ('LabelLength',20.0), ('SupplyDiameter',30.0),
+                    ('TakeupDiameter',20.0), ('PressDiameter',14.0), ('InnerFrameWidth',25.2)]:
+    params.addProperty('App::PropertyLength', name, 'Concept dimensions')
+    setattr(params, name, value)
+params.addProperty('App::PropertyString', 'Status', 'Review')
+params.Status = 'Компоновка. Посадка на кисть, привод, натяжение и прочность не проверены. Свойства справочные.'
+
+blue = (0.25, 0.47, 0.70)
+steel = (0.62, 0.66, 0.70)
+
+# Axes are across the web (global X). Box lies in a vertical XZ plane.
+supply = part('SupplyRoll', '1 Катушка подачи — Ø30, лента 20 мм',
+              cyl(15,20,-8,28).cut(cyl(5,22,-8,28)), (0.91,0.86,0.66))
+part('SupplyCore', 'Втулка подающей катушки', cyl(5,22,-8,28).cut(cyl(1.65,24,-8,28)), blue)
+part('SupplyFlanges', 'Щёки подающей катушки',
+     cyl(16,1,-8,28,-11.2).fuse(cyl(16,1,-8,28,10.2)).cut(cyl(1.65,28,-8,28)), blue)
+part('SupplyAxle', 'Ось подачи — условная Ø3', cyl(1.5,34,-8,28), steel)
+part('SupplyBrake', 'Фрикционный тормоз подачи — шайбы, условно',
+     cyl(5,2,-8,28,-16.5).cut(cyl(1.65,36,-8,28)), (0.67,0.31,0.24))
+
+part('TakeupCore', '2 Намотка подложки — тянущая катушка',
+     cyl(5,22,-8,-17).cut(cyl(1.65,24,-8,-17)), (0.30,0.66,0.57))
+part('TakeupLiner', 'Намотанная подложка — условный Ø20',
+     cyl(10,20,-8,-17).cut(cyl(5.05,22,-8,-17)), (0.87,0.91,0.86))
+part('TakeupFlanges', 'Щёки катушки намотки',
+     cyl(11,1,-8,-17,-11.2).fuse(cyl(11,1,-8,-17,10.2)).cut(cyl(1.65,28,-8,-17)), (0.30,0.66,0.57))
+part('TakeupAxle', 'Ось намотки — место подключения привода', cyl(1.5,37,-8,-17), steel)
+part('TakeupKnob', 'Ручная подача / место моторной муфты',
+     cyl(6,4,-8,-17,15).cut(cyl(1.65,40,-8,-17)), (0.89,0.51,0.22))
+
+# A small spring-loaded dancer contacts the incoming web. Its spring is a
+# schematic envelope, not a validated force law or an anti-backlash assembly.
+part('TensionRoller', '3 Подпружиненный натяжной ролик — Ø6',
+     cyl(3,22,14,9.25).cut(cyl(1.2,24,14,9.25)), (0.75,0.52,0.83))
+part('TensionAxle', 'Ось натяжителя, ход в пазах около 4 мм', cyl(1,30,14,9.25), steel)
+part('TensionSlider', 'Ползунок натяжителя — условный',
+     Part.makeBox(2.0,8,8,V(14.6,10,5.25)).cut(cyl(1.2,40,14,9.25)), blue, 'Frame')
+spring_segments=[]
+for k in range(7):
+    a=V(15.6,14 + (-1.5 if k%2 else 1.5),18+k*0.8)
+    b=V(15.6,14 + (-1.5 if (k+1)%2 else 1.5),18+(k+1)*0.8)
+    spring_segments.append(Part.makeCylinder(0.35,(b-a).Length,a,b-a))
+part('TensionSpring', 'Пружина натяжителя — схема, усилие не назначено',
+     Part.makeCompound(spring_segments), (0.68,0.28,0.70))
+
+# Small-radius smooth peel edge; not a blade for cutting the backing.
+peel_profile = [V(-11,23,1.0), V(-11,31.8,1.4), V(-11,32,2.0),
+                V(-11,23,3.2), V(-11,23,1.0)]
+part('PeelPlate', '4 Отделяющая кромка — перегиб подложки, НЕ нож',
+     Part.Face(Part.makePolygon(peel_profile)).extrude(V(22,0,0)), (0.86,0.36,0.16))
+part('PressRoller', '5 Мягкий прижимной ролик — Ø14 × 22',
+     cyl(7,22,32,15).cut(cyl(1.65,24,32,15)), (0.14,0.17,0.21))
+part('PressAxle', 'Ось прижимного ролика', cyl(1.5,30,32,15), steel)
+
+# Skeletal side plates. Open windows allow inspection and future weight saving.
+plate_profile=[(-23,-30),(20,-30),(36,-5),(36,23),(11,45),(-23,45)]
+def cheek(x):
+    p=[V(x,y,z) for y,z in plate_profile]
+    p.append(p[0])
+    shape=Part.Face(Part.makePolygon(p)).extrude(V(2.4,0,0))
+    shape=shape.cut(Part.makeBox(5,32,28,V(x-1,-19,13)))
+    shape=shape.cut(Part.makeBox(5,34,23,V(x-1,-19,-28)))
+    for y,z,r in [(-8,28,1.65),(-8,-17,1.65),(32,15,1.65)]:
+        shape=shape.cut(cyl(r,5,y,z,x-1))
+    shape=shape.cut(Part.makeBox(5,2.4,6.4,V(x-1,12.8,6.05)))
+    return shape
+
+back = part('RearCheek', 'Задняя щека — облегчённая, 2,4 мм', cheek(-15), blue, 'Frame', 65)
+front = part('FrontCheek', 'Передняя щека — скрыта для обзора ленты', cheek(12.6), blue, 'Frame', 85)
+front.Visibility = False
+part('RearBridge', 'Задняя перемычка корпуса', Part.makeBox(25.2,3,50,V(-12.6,-23,-18)), blue, 'Frame')
+part('LowerBridge', 'Нижняя перемычка корпуса', Part.makeBox(25.2,18,2.4,V(-12.6,-20,-31)), blue, 'Frame')
+mount=Part.makeBox(28,24,3,V(-14,-24,-35))
+for x in (-7,7):
+    mount=mount.cut(Part.makeCylinder(1.65,5,V(x,-12,-36),V(0,0,1)))
+part('WristAdapter', 'Условный переходник на кисть — посадку уточнить', mount, (0.38,0.43,0.49), 'Frame')
+
+# Tangent-ish conceptual routing: exact peel radius and compliance need testing.
+part('IncomingWeb', 'Лента с этикетками: подача → натяжитель → кромка',
+     ribbon([(-11.0,13.30),(13.4,6.30),(32,2.0)]), (0.91,0.79,0.38), 'Web')
+part('ReturningLiner', 'Голая подложка: кромка → катушка намотки',
+     ribbon([(32,1.35),(-10.05,-7.21)], thickness=0.09), (0.32,0.78,0.80), 'Web')
+part('PresentedLabel', 'Выступающий край этикетки — около 7 мм, клей к коробке',
+     ribbon([(32,2.20),(38.7,0.30)], thickness=0.18), (0.96,0.43,0.11), 'Web')
+
+box=part('BoxWall', 'Коробка — вертикальная стенка, справочно',
+         Part.makeBox(46,3,82,V(-23,39,-34)), (0.69,0.53,0.33), 'Reference', 80)
+arrow = Part.makeCylinder(0.8,17,V(20,35,37),V(0,0,-1)).fuse(
+    Part.makeCone(2.6,0,5,V(20,35,20),V(0,0,-1)))
+part('MoveDown', 'Движение головки ВНИЗ вдоль стенки', arrow, (0.87,0.15,0.16), 'Reference')
+
+doc.recompute()
+head = [o for o in objects if o not in groups['Reference'].Group]
+bounds = Part.makeCompound([o.Shape for o in head]).BoundBox
+checks = [{'name':o.Name,'label':o.Label,'valid':o.Shape.isValid(),
+           'solid_count':len(o.Shape.Solids)} for o in objects]
+report = {'status':'CONCEPT ONLY — not a print-ready or load-rated design',
+          'web_width_mm':20,'label_size_assumed_mm':[20,20],
+          'head_bounds_xyz_mm':[bounds.XLength,bounds.YLength,bounds.ZLength],
+          'checks':checks,
+          'unverified':['wrist interface','web tangency and peel radius','adhesive release',
+                        'spring and brake torque','takeup drive and changing winding diameter',
+                        'mass and arm payload','fasteners and assembly access'],
+          'sources':['https://www.weber-marking.com/expertise/technologies/labeling/']}
+(DEST/'concept_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+doc.saveAs(str(DEST/'LabelApplicator_v1.FCStd'))
+view.viewRight();view.fitAll();Gui.updateGui()
+view.saveImage(str(DEST/'side_preview.png'),1500,1100,'White')
+view.viewAxonometric();view.fitAll();Gui.updateGui()
+view.saveImage(str(DEST/'assembly_preview.png'),1500,1100,'White')
+doc.save()
+App.Console.PrintMessage('\nГОТОВО. Лепилка v1: макет принципа работы. Передняя щека скрыта.\n')
+App.Console.PrintMessage('Для обзора сбоку: клавиша 3. Коробку можно скрыть пробелом.\n')
+print('SAVED',doc.FileName,'BOUNDS',report['head_bounds_xyz_mm'],flush=True)

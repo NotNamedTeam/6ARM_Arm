@@ -1,0 +1,46 @@
+"""Import the printable STL parts into an editable FreeCAD project.
+
+This is a parts catalogue, not an assembled kinematic model.
+"""
+
+from pathlib import Path
+
+import FreeCAD as App
+import FreeCADGui as Gui
+import Mesh
+
+
+ROOT = Path(__file__).resolve().parent
+MESH_DIR = ROOT / "meshes"
+OUTPUT = ROOT / "RobotArm_STL_Catalog.FCStd"
+GROUP_NAMES = ("BASE", "AXIS1", "AXIS2", "AXIS3", "WRIST", "GRIPPER")
+
+paths = sorted(MESH_DIR.glob("*.stl"))
+if len(paths) != 27:
+    raise RuntimeError("Expected 27 STL files, found %d" % len(paths))
+
+doc = App.newDocument("RobotArm_STL_Catalog")
+groups = {}
+for name in GROUP_NAMES:
+    group = doc.addObject("App::DocumentObjectGroup", name)
+    group.Label = name
+    groups[name] = group
+
+for index, path in enumerate(paths, start=1):
+    group_name = path.name.split("_-_", 1)[0]
+    if group_name not in groups:
+        raise RuntimeError("Unknown group for %s" % path.name)
+    obj = doc.addObject("Mesh::Feature", "Part_%02d" % index)
+    obj.Label = path.stem
+    obj.Mesh = Mesh.Mesh(str(path))
+    obj.addProperty("App::PropertyString", "SourceSTL", "Source")
+    obj.SourceSTL = path.name
+    obj.addProperty("App::PropertyString", "SourceUnits", "Source")
+    obj.SourceUnits = "mm (STL has no unit metadata)"
+    groups[group_name].addObject(obj)
+    obj.ViewObject.Visibility = False
+
+doc.recompute()
+doc.saveAs(str(OUTPUT))
+Gui.activeDocument().activeView().viewAxonometric()
+App.Console.PrintMessage("Imported %d STL parts into %s\n" % (len(paths), OUTPUT))

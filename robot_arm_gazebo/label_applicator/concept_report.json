@@ -1,0 +1,189 @@
+{
+  "status": "CONCEPT ONLY — not a print-ready or load-rated design",
+  "web_width_mm": 20,
+  "label_size_assumed_mm": [
+    20,
+    20
+  ],
+  "head_bounds_xyz_mm": [
+    37.5,
+    62.98368138433378,
+    80.0
+  ],
+  "checks": [
+    {
+      "name": "SupplyRoll",
+      "label": "1 Катушка подачи — Ø30, лента 20 мм",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "SupplyCore",
+      "label": "Втулка подающей катушки",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "SupplyFlanges",
+      "label": "Щёки подающей катушки",
+      "valid": true,
+      "solid_count": 2
+    },
+    {
+      "name": "SupplyAxle",
+      "label": "Ось подачи — условная Ø3",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "SupplyBrake",
+      "label": "Фрикционный тормоз подачи — шайбы, условно",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupCore",
+      "label": "2 Намотка подложки — тянущая катушка",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupLiner",
+      "label": "Намотанная подложка — условный Ø20",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupFlanges",
+      "label": "Щёки катушки намотки",
+      "valid": true,
+      "solid_count": 2
+    },
+    {
+      "name": "TakeupAxle",
+      "label": "Ось намотки — место подключения привода",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TakeupKnob",
+      "label": "Ручная подача / место моторной муфты",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TensionRoller",
+      "label": "3 Подпружиненный натяжной ролик — Ø6",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TensionAxle",
+      "label": "Ось натяжителя, ход в пазах около 4 мм",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TensionSlider",
+      "label": "Ползунок натяжителя — условный",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "TensionSpring",
+      "label": "Пружина натяжителя — схема, усилие не назначено",
+      "valid": true,
+      "solid_count": 7
+    },
+    {
+      "name": "PeelPlate",
+      "label": "4 Отделяющая кромка — перегиб подложки, НЕ нож",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "PressRoller",
+      "label": "5 Мягкий прижимной ролик — Ø14 × 22",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "PressAxle",
+      "label": "Ось прижимного ролика",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "RearCheek",
+      "label": "Задняя щека — облегчённая, 2,4 мм",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "FrontCheek",
+      "label": "Передняя щека — скрыта для обзора ленты",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "RearBridge",
+      "label": "Задняя перемычка корпуса",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "LowerBridge",
+      "label": "Нижняя перемычка корпуса",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "WristAdapter",
+      "label": "Условный переходник на кисть — посадку уточнить",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "IncomingWeb",
+      "label": "Лента с этикетками: подача → натяжитель → кромка",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "ReturningLiner",
+      "label": "Голая подложка: кромка → катушка намотки",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "PresentedLabel",
+      "label": "Выступающий край этикетки — около 7 мм, клей к коробке",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "BoxWall",
+      "label": "Коробка — вертикальная стенка, справочно",
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "name": "MoveDown",
+      "label": "Движение головки ВНИЗ вдоль стенки",
+      "valid": true,
+      "solid_count": 1
+    }
+  ],
+  "unverified": [
+    "wrist interface",
+    "web tangency and peel radius",
+    "adhesive release",
+    "spring and brake torque",
+    "takeup drive and changing winding diameter",
+    "mass and arm payload",
+    "fasteners and assembly access"
+  ],
+  "sources": [
+    "https://www.weber-marking.com/expertise/technologies/labeling/"
+  ]
+}

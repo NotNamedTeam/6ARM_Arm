@@ -1,0 +1,33 @@
+from pathlib import Path
+import sys
+import FreeCAD as App
+import FreeCADGui as Gui
+
+ROOT = Path(__file__).resolve().parent
+doc = App.openDocument(str(ROOT / 'freecad/RobotArm_Assembly.FCStd'))
+for part_doc in App.listDocuments().values():
+    source = part_doc.getObject('SourceMesh')
+    model = part_doc.getObject('Model')
+    if source and model:
+        source.Visibility = False
+        model.Visibility = True
+        model.ViewObject.ShapeColor = (.78, .82, .87)
+        model.ViewObject.DisplayMode = 'Shaded'
+        part_doc.recompute()
+        part_doc.save()
+for obj in doc.Objects:
+    if obj.TypeId == 'App::Link':
+        obj.ViewObject.DrawStyle = 'Solid'
+        obj.Visibility = True
+    elif obj.TypeId in ('App::Part', 'Assembly::AssemblyObject'):
+        obj.Visibility = True
+App.setActiveDocument(doc.Name)
+doc.recompute()
+Gui.activeDocument().activeView().viewAxonometric()
+Gui.activeDocument().activeView().fitAll()
+Gui.updateGui()
+doc.save()
+Gui.activeDocument().activeView().saveImage(str(ROOT / 'freecad/assembly_preview.png'), 1200, 1000, 'White')
+Gui.activateWorkbench('RobotArmGazeboWorkbench')
+Gui.getMainWindow().showMaximized()
+Gui.runCommand('RobotArm_ExportGazebo')

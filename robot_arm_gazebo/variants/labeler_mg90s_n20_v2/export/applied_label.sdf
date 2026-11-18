@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.10">
+  <model name="applied_label">
+    <static>true</static>
+    <link name="sticker">
+      <pose>.01 .0946 0.3003 0 0 0</pose>
+      <visual name="white_20mm_label">
+        <geometry>
+          <box>
+            <size>.02 .0005 .02</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>.98 .97 .88 1</ambient>
+          <diffuse>.98 .97 .88 1</diffuse>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
